@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Information Film</title>
+    <!--/*/ <th:block th:include="fragments/head-fragment.html :: head" ></th:block> /*/-->
+
+</head>
+<body>
+<header th:insert="fragments/navigation-fragement.html :: header"></header>
+<th:block th:if="${status}">
+    <div th:insert="fragments/movie-fragment.html :: movie"></div>
+</th:block>
+
+<section style="background: #000">
+    <div class="container">
+        <div class="row">
+            <div class="mr-4 pt-4 col mb-4 ml-2">
+                <img th:src="${movie_detail.movie_image}" height="350px" alt="">
+            </div>
+            <div class="ml-4 pt-4 col-md-8 ">
+                <h6 class="text-warning" style="font-weight: 600;"><i class="fa fa-snowflake"></i>FREE MASTER. <span
+                        class="text-light"><th:block th:text="${movie_detail.movie_type}"/>.<th:block
+                        th:text="${movie_detail.release_year}"/></span></h6>
+                <h4 class="text-danger" th:text="${movie_detail.movie_name}"></h4>
+                <p class="text-light">Action/Life (2021) <span class="text-light" th:text="${server}"></span></p>
+                <div class="d-flex">
+                    <p>
+                        <th:block th:if="${session.name} != null">
+                            <input type="hidden" id="movie_ajax_id" th:value="${movie_detail.id}" />
+                            <input type="hidden" id="user_ajax_id" th:value="${session.user_id}"/>
+                            <input type="hidden" id="num_rate_user" th:value="${num_rate_user}"/>
+
+                            <i class="fa fa-star  check" onclick="check(1)"></i>
+                            <i class="fa fa-star  check" onclick="check(2)"></i>
+                            <i class="fa fa-star  check" onclick="check(3)"></i>
+                            <i class="fa fa-star check" onclick="check(4)"></i>
+                            <i class="fa fa-star  check" onclick="check(5)"></i>
+                        </th:block>
+                        <th:block th:if="${session.name} == null">
+                            <i class="fa fa-star text-warning"></i>
+                        </th:block>
+                        <a  class="text-secondary" th:text="${rate}" id="rate_text"> </a>
+                    </p>
+                        <p class="ml-4"><i class="fa fa-share-alt text-warning"></i><a href="" class="text-secondary"> Share</a> </p>
+
+
+                    <p class="ml-4"><i class="fa fa-eye text-warning"></i><a href="" class="text-secondary">
+                        <th:block th:text="${view}"/>
+                        view</a></p>
+
+                    <p class="ml-4">
+                        <th:block th:if="${episode_id} == 0">
+                            <i class="fa fa-exclamation-triangle text-danger"></i>
+                            <a style="cursor: pointer" class="text-secondary" onclick="access()" > Message error</a>
+                        </th:block>
+                        <th:block th:if="${episode_id} != 0">
+                            <th:block th:if="${message} == true">
+                                <i class="fa fa-exclamation-triangle text-danger"></i>
+                                <a th:href="@{'/information/error?episodeId='+${episode_id}+'&serverId='+${server_id}}" style="cursor: pointer" class="text-secondary" > Message error</a>
+                            </th:block>
+                            <th:block th:if="${message} == false">
+                                <i class="fa fa-gavel text-danger"></i>
+                                <a  style="cursor: pointer" class="text-danger" >  Fixing</a>
+                            </th:block>
+                        </th:block>
+                    </p>
+
+                </div>
+                <th:block th:if="${server} != 0">
+                    <a th:href="@{'/information/'+${movie_detail.id}+'/'+${episodes.get(0).getId()}+'/'+${server}}"
+                       class="btn btn-outline-danger" style="height: 35px"><i class="fa fa-play text-danger"></i> PLAY
+                        FILM</a>
+                </th:block>
+                <th:block th:if="${server} == 0">
+                    <a href="" class="btn btn-outline-danger" style="height: 35px" onclick="onServer()"><i
+                            class="fa fa-play text-danger"></i> PLAY FILM</a>
+                </th:block>
+
+                <th:block th:if="${session.name == null} ">
+                    <a class="btn btn-outline-warning ml-4" style="height: 35px;cursor: pointer" onclick="follow()"><i class="fa fa-plus text-warning"></i> FOLLOW</a>
+
+                </th:block>
+                <th:block th:if="${session.name != null}">
+                    <th:block th:if="${follow} == 'active'">
+                        <a th:href="@{'/information/cancelfollow?id='+${movie_detail.id}+'&user_id='+${session.user_id}+'&page='+${follow_page}}"
+                           class="btn btn-warning ml-4" style="height: 35px" ><i class="fa fa-plus" style="color: #000 !important;"></i> FOLLOWED</a>
+
+                    </th:block>
+                    <th:block th:if="${follow} == 'non_active'">
+                        <a th:href="@{'/information/follow?id='+${movie_detail.id}+'&user_id='+${session.user_id}+'&page='+${follow_page}}"
+                           class="btn btn-outline-warning ml-4" style="height: 35px"><i class="fa fa-plus" ></i> FOLLOW</a>
+                    </th:block>
+                </th:block>
+               <p class="text-secondary mt-4" style="font-size: 13px;"
+                   th:text="${movie_detail.movie_introduction}"></p>
+                <div class="row">
+                    <div class="col-6">
+                        <p class="text-secondary mb-0" style="font-size: 13px;">Episodes: <span class="text-light"><th:block
+                                th:text="${episode}"/> / <th:block th:text="${movie_detail.total_episodes}"/> </span>
+                        </p>
+                        <p class="text-secondary mb-2" style="font-size: 13px;">Time: <span class="text-light"
+                                                                                            th:text="${movie_detail.movie_length}"></span>p
+                        </p>
+
+                    </div>
+                    <div class="col-6">
+                        <p class="text-secondary mb-0" style="font-size: 13px;">Nation:
+                            <th:block th:each="item : ${nation}">
+                                <span class="text-light" th:text="${item.getNation_name()}"></span>
+                            </th:block>
+                        </p>
+                        <p class="text-secondary mb-2" style="font-size: 13px;">Category:
+                            <th:block th:each="item : ${category}">
+                                <span class="text-light" th:text="${item.getCategory_name()}"></span>
+                            </th:block>
+                        </p>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container mt-4">
+        <div class="row mt-4" style="display: flex;flex-direction: column;align-items: center">
+            <h6 class="text-danger" style="font-weight: 600">EPISODE</h6>
+            <div style="height: 7px; width: 40px; background-color: #cdcdcd"></div>
+        </div>
+        <div class="row mt-2" style="display: flex;justify-content: center">
+            <th:block th:if="${server} != 0">
+                <th:block th:if="${episodes.get(0).getId()} !=0">
+                    <th:block th:each="item : ${episodes}">
+                        <th:block th:if="${episode_id} != 0">
+                            <th:block th:if="${episode_id} == ${item.getId()}">
+                                <a th:href="@{'/information/'+${movie_detail.id}+'/'+${item.id}+'/1'}"
+                                   class="btn btn-dark mr-2 text-light" style="font-size:14px"
+                                   th:text="${item.getEpisode_name()}"></a>
+                            </th:block>
+                            <th:block th:if="${episode_id} != ${item.getId()}">
+                                <th:block th:if="${item.check_session} == true">
+                                    <a th:href="@{'/information/'+${movie_detail.id}+'/'+${item.id}+'/1'}"
+                                       class="btn btn-outline-dark mr-2 text-secondary" style="font-size:14px; background-color: #000;border: 1px solid #000 !important;"
+                                       th:text="${item.getEpisode_name()}"></a>
+                                </th:block>
+                                <th:block th:if="${item.check_session} == false">
+                                    <a th:href="@{'/information/'+${movie_detail.id}+'/'+${item.id}+'/1'}"
+                                       class="btn btn-outline-dark mr-2 text-secondary" style="font-size:14px"
+                                       th:text="${item.getEpisode_name()}"></a>
+                                </th:block>
+
+                            </th:block>
+                        </th:block>
+                        <th:block th:if="${episode_id} == 0">
+                            <th:block th:if="${item.check_session} == true">
+                                <a th:href="@{'/information/'+${movie_detail.id}+'/'+${item.id}+'/1'}"
+                                   class="btn btn-outline-dark mr-2 text-secondary" style="font-size:14px; background-color: #000;border: 1px solid #000 !important;"
+                                   th:text="${item.getEpisode_name()}"></a>
+                            </th:block>
+                            <th:block th:if="${item.check_session} == false">
+                                <a th:href="@{'/information/'+${movie_detail.id}+'/'+${item.id}+'/1'}"
+                                   class="btn btn-outline-dark mr-2 text-secondary" style="font-size:14px"
+                                   th:text="${item.getEpisode_name()}"></a>
+                            </th:block>
+                        </th:block>
+
+                    </th:block>
+                </th:block>
+            </th:block>
+            <th:block th:if="${server} == 0">
+                <a href="" class="btn btn-outline-dark mr-2 text-secondary" style="font-size:14px"
+                   onclick="onServer()">Not released yet</a>
+            </th:block>
+        </div>
+
+        <div class="row mt-4" style="display: flex;flex-direction: column;align-items: center">
+            <h6 class="text-danger" style="font-weight: 600">COMMENT FILM</h6>
+            <div style="height: 7px; width: 40px; background-color: #cdcdcd">
+            </div>
+        </div>
+        <div class="row mt-4" style="display: flex;flex-direction: column;align-items: center">
+            <h6 class="text-danger" style="font-weight: 600">PREVIEW</h6>
+            <div style="height: 7px; width: 40px; background-color: #cdcdcd">
+            </div>
+            <iframe class="mt-4" width="100%" height="315" th:src="${movie_detail.movie_trailer}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="row mt-4" style="display: flex;flex-direction: column;align-items: center">
+            <h6 class="text-danger" style="font-weight: 600">OTHER FILM</h6>
+            <div style="height: 7px; width: 40px; background-color: #cdcdcd"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <th:block th:each="item : ${movie_nation}">
+                <a class="mr-3 mt-3" th:href="@{'/information/'+${item.id}}">
+                    <div class="card-style-1">
+                        <img th:src="${item.movie_image}" alt=""/>
+                        <div class="episode">
+                            <h8>Chap
+                                <p>
+                                    <th:block th:text="${item.episode}"/>
+                                    /
+                                    <th:block th:text="${item.total_episodes}"/>
+                                </p>
+                            </h8>
+                        </div>
+                        <div class="rate">
+                            <p>
+                                <th:block th:text="${item.rate}"/>
+
+                                <i class="fa fa-star"></i>
+                            </p>
+                        </div>
+                        <div class="play">
+                            <i class="fa fa-play"></i>
+                        </div>
+                        <div class="infor mt-2">
+                            <h5 th:text="${item.movie_name}"></h5>
+                            <p>Lượt xem:
+                                <th:block th:text="${item.view}"/>
+                                views
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </th:block>
+        </div>
+    </div>
+</section>
+
+
+
+<div th:insert="fragments/footer-fragment.html ::footer"></div>
+<!--/*/ <th:block th:include="fragments/head-fragment.html :: script" ></th:block> /*/-->
+<!--/*/ <th:block th:include="fragments/ads-fragment.html ::ads1 "></th:block> /*/-->
+<div th:insert="fragments/message-fragment.html ::comment"></div>
+
+
+<script>
+    function onServer() {
+        alert('No new episode out yet')
+    }
+    function access(){
+        alert("Please access the error video")
+    }
+    function follow(){
+        alert("Please login now")
+    }
+    let check_rate = document.querySelectorAll(".check");
+    var checked_rate = parseInt(document.getElementById("num_rate_user").value);
+    console.log(checked_rate)
+    for(let i=0;i<checked_rate;i++){
+        check_rate[i].classList.add("checked")
+    }
+
+    function check(e){
+
+        let movie_id = document.getElementById("movie_ajax_id")
+        let user_id = document.getElementById("user_ajax_id")
+
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(checked_rate)
+                for(let i=0;i<check_rate.length;i++){
+                    check_rate[i].classList.remove("checked")
+                }
+                console.log(e)
+                if(checked_rate !== e){
+                    for(let i=0;i<e;i++){
+                        check_rate[i].classList.add("checked")
+
+                    }
+                    checked_rate = e;
+                }else {
+                    for(let i=0;i<e;i++){
+                        check_rate[i].classList.remove("checked")
+                    }
+                    checked_rate = 0
+                }
+                console.log(checked_rate)
+                rate(movie_id.value)
+
+            }
+        }
+        let str = "/information/follow/" + user_id.value + "/" + movie_id.value+"/";
+        xhttp.open("POST", str+e);
+        xhttp.send();
+    }
+
+    function rate(movie_id){
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("rate_text").innerHTML = this.responseText;
+            }
+        }
+        let str = "/information/number/ "+ movie_id;
+        xhttp.open("POST", str);
+        xhttp.send();
+    }
+
+
+</script>
+</body>
+</html>

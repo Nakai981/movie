@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Home</title>
+  <!--/*/ <th:block th:include="fragments/head-fragment.html :: head" ></th:block> /*/-->
+</head>
+<body>
+<header th:insert="fragments/navigation-fragement.html :: header"></header>
+
+
+<div class="container">
+  <div class="row mt-4" style="display: flex; flex-direction: column; align-items: center">
+    <h6 class="text-danger mt-3">     <i class="fa fa-film text-secondary"></i> | NOMINATED FILM</h6>
+    <small class="" style="color: #cdcdcd">&copyTop month November</small>
+  </div>
+  <div class="row mt-4">
+    <div class="col-lg-12">
+      <div id="news-slider" class="owl-carousel">
+        <th:block th:each="item : ${movies_nominated}">
+          <div class="news-grid">
+          <a class="mr-3 mt-3" th:href="@{'/information/'+${item.id}}">
+            <div class="card-style-1">
+              <img th:src="${item.movie_image}" alt="" />
+              <div class="episode">
+                <h8>Chap
+                  <p><th:block th:text="${item.episode}"/> /<th:block th:text="${item.total_episodes}"/></p>
+                </h8>
+              </div>
+              <div class="rate">
+                <p>
+                  <th:block th:text="${item.rate}"/>
+
+                  <i class="fa fa-star"></i>
+                </p>
+              </div>
+              <div class="play">
+                <i class="fa fa-play"></i>
+              </div>
+              <div class="infor mt-2">
+                <h5 th:text="${item.getStringMovieName}"></h5>
+                <p>Lượt xem:  <th:block th:text="${item.view}"/> views</p>
+              </div>
+            </div>
+          </a>
+          </div>
+        </th:block>
+
+      </div>
+    </div>
+  </div>
+
+    <div class="row" style="display: flex; flex-direction: column; align-items: center">
+      <h6 class="text-danger  mt-4"> <i class="fa fa-question-circle text-secondary"></i> | WHAT TO SEE TODAY?</h6>
+    </div>
+    <div class="row-1" style="display: flex; flex-direction: column; align-items: center">
+      <small class="text-secondary ml-2 ">If you are wondering what to watch. Let our system choose randomly for you. Have a nice day watching movies</small>
+    </div>
+    <div class="row-2" style="display: flex; flex-direction: column; align-items: center">
+      <a href="/systems" class="btn bg-dark mt-2 ml-2 text-light" style="font-size: 12px">System Selection</a>
+    </div>
+
+
+
+  <div class="row">
+    <div class="col">
+      <div class="row mt-4" style="display: flex;flex-direction: column;align-items: center">
+        <h6 class="text-secondary" style="font-weight: 600"><i class="fa fa-film text-secondary"></i> | NEWS FILM</h6>
+        <div style="height: 7px; width: 40px; background-color: #cdcdcd"></div>
+      </div>
+      <div  class="row d-flex justify-content-center">
+        <th:block th:each="item : ${movie_new}">
+            <a class="mr-3 mt-3" th:href="@{'/information/'+${item.id}}">
+              <div class="card-style-1">
+                <img th:src="${item.movie_image}" alt="" />
+                <div class="episode">
+                  <h8>Chap
+                    <p><th:block th:text="${item.episode}"/> /<th:block th:text="${item.total_episodes}"/></p>
+                  </h8>
+                </div>
+                <div class="rate">
+                  <p>
+                    <th:block th:text="${item.rate}"/>
+
+                    <i class="fa fa-star"></i>
+                  </p>
+                </div>
+                <div class="play">
+                  <i class="fa fa-play"></i>
+                </div>
+                <div class="infor mt-2">
+                  <h5 th:text="${item.getStringMovieName}"></h5>
+                  <p>Lượt xem:  <th:block th:text="${item.view}"/> views</p>
+                </div>
+              </div>
+            </a>
+        </th:block>
+      </div>
+      <div class="row mt-4 mr-4" style="display: flex; justify-content: flex-end">
+        <a href="" class="text-danger"> <i class="fa fa-arrow-right"></i> <u>continue</u></a>
+      </div>
+    </div>
+    <div class="col-md-4">
+
+
+      <div class="row mt-4" style="display: flex;flex-direction: column;align-items: center">
+        <h6 class="text-secondary " style="font-weight: 600">TOP FILM MONTH</h6>
+        <div style="height: 7px; width: 40px; background-color: #cdcdcd"></div>
+      </div>
+      <div class="row mt-4" style="display: flex;flex-direction: column;align-items: center">
+        <img  src="https://i.pinimg.com/originals/46/0c/b1/460cb18ad7a8e106fc438408d646e6e8.gif" width="90%" alt="">
+      </div>
+      <div class="row mt-2 d-flex justify-content-center">
+        <div class=" d-flex flex-column align-items-start p-4" style="height: 650px;width: 400px;background-color: #232323; border-radius: 10px">
+          <th:block th:each="item : ${movie_view}">
+            <input type="hidden" name="" class="rate_text" th:value="${item.rate}" />
+            <a class="mr-3 mt-3 d-flex  card-style-2" th:href="@{'/information/'+${item.id}}" href="" >
+              <div class="box">
+                <p class="note-1"></p>
+              </div>
+              <div class="">
+                <img th:src="${item.movie_image}"/>
+              </div>
+              <div class="ml-2">
+                <p class="m-0" th:text="${item.getStringMovieName}"></p>
+                <small class="text-light episode"><th:block th:text="${item.episode}"/> /<th:block th:text="${item.total_episodes}"/></small>
+                <small class="text-secondary"><th:block th:text="${item.view}"/> view</small>
+                <br>
+                <div class="mt-1">
+                  <i class="fa fa-star check "></i>
+                  <i class="fa fa-star check "></i>
+                  <i class="fa fa-star check"></i>
+                  <i class="fa fa-star check" ></i>
+                  <i class="fa fa-star check"></i>
+                </div>
+              </div>
+
+
+            </a>
+          </th:block>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="row mt-4" style="display: flex;flex-direction: column;align-items: center">
+    <h6 class="text-secondary" style="font-weight: 600">KOREA FILM</h6>
+    <div style="height: 7px; width: 40px; background-color: #cdcdcd"></div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <th:block th:each="item : ${movie_nation}">
+      <a class="mr-3 mt-3"th:href="@{'/information/'+${item.id}}">
+        <div class="card-style-1">
+          <img th:src="${item.movie_image}" alt="" />
+          <div class="episode">
+            <h8>Chap
+              <p><th:block th:text="${item.episode}"/> /<th:block th:text="${item.total_episodes}"/></p>
+            </h8>
+          </div>
+          <div class="rate">
+            <p>
+              <th:block th:text="${item.rate}"/>
+
+              <i class="fa fa-star"></i>
+            </p>
+          </div>
+          <div class="play">
+            <i class="fa fa-play"></i>
+          </div>
+          <div class="infor mt-2">
+            <h5 th:text="${item.getStringMovieName}"></h5>
+            <p>Lượt xem:  <th:block th:text="${item.view}"/> views</p>
+          </div>
+        </div>
+      </a>
+    </th:block>
+  </div>
+  <div class="row mt-4 mr-4" style="display: flex; justify-content: flex-end">
+    <a href="" class="text-danger"> <i class="fa fa-arrow-right"></i> <u>continue</u></a>
+  </div>
+  <div class="row mt-4" style="display: flex;flex-direction: column;align-items: center">
+    <h6 class="text-secondary" style="font-weight: 600">LIVE ACTION FILM</h6>
+    <div style="height: 7px; width: 40px; background-color: #cdcdcd"></div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <th:block th:each="item : ${movie_category_live}">
+      <a class="mr-3 mt-3"th:href="@{'/information/'+${item.id}}">
+        <div class="card-style-1">
+          <img th:src="${item.movie_image}" alt="" />
+          <div class="episode">
+            <h8>Chap
+              <p><th:block th:text="${item.episode}"/> /<th:block th:text="${item.total_episodes}"/></p>
+            </h8>
+          </div>
+          <div class="rate">
+            <p>
+              <th:block th:text="${item.rate}"/>
+
+              <i class="fa fa-star"></i>
+            </p>
+          </div>
+          <div class="play">
+            <i class="fa fa-play"></i>
+          </div>
+          <div class="infor mt-2">
+            <h5 th:text="${item.getStringMovieName}"></h5>
+            <p>Lượt xem:  <th:block th:text="${item.view}"/> views</p>
+          </div>
+        </div>
+      </a>
+    </th:block>
+  </div>
+  <div class="row mt-4 mr-4" style="display: flex; justify-content: flex-end">
+    <a href="" class="text-danger"> <i class="fa fa-arrow-right"></i> <u>continue</u></a>
+  </div>
+  <div class="row mt-4" style="display: flex;flex-direction: column;align-items: center">
+    <h6 class="text-secondary" style="font-weight: 600">ANIME FILM</h6>
+    <div style="height: 7px; width: 40px; background-color: #cdcdcd"></div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <th:block th:each="item : ${movie_category_anime}">
+      <a class="mr-3 mt-3" th:href="@{'/information/'+${item.id}}">
+        <div class="card-style-1">
+          <img th:src="${item.movie_image}" alt="" />
+          <div class="episode">
+            <h8>Chap
+              <p><th:block th:text="${item.episode}"/> /<th:block th:text="${item.total_episodes}"/></p>
+            </h8>
+          </div>
+          <div class="rate">
+            <p>
+              <th:block th:text="${item.rate}"/>
+
+              <i class="fa fa-star"></i>
+            </p>
+          </div>
+          <div class="play">
+            <i class="fa fa-play"></i>
+          </div>
+          <div class="infor mt-2">
+            <h5 th:text="${item.getStringMovieName}"></h5>
+            <p>Lượt xem:  <th:block th:text="${item.view}"/> views</p>
+          </div>
+        </div>
+      </a>
+    </th:block>
+  </div>
+  <div class="row mt-4 mr-4" style="display: flex; justify-content: flex-end">
+    <a href="" class="text-danger"> <i class="fa fa-arrow-right"></i> <u>continue</u></a>
+  </div>
+</div>
+
+
+<div th:insert="fragments/message-fragment.html ::comment"></div>
+<div th:insert="fragments/footer-fragment.html ::footer"></div>
+
+<!--/*/ <th:block th:include="fragments/ads-fragment.html ::ads1 "></th:block> /*/-->
+
+<!--/*/ <th:block th:include="fragments/head-fragment.html :: script" ></th:block> /*/-->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#news-slider").owlCarousel({
+      items: 6,
+      navigation: true,
+      navigationText: ["", ""],
+      autoPlay: true,
+    });
+  });
+
+  let checked = document.querySelectorAll(".rate_text");
+  let check_rate = document.querySelectorAll(".check");
+  let note = document.querySelectorAll(".note-1");
+  var input = 0;
+  var input1= 0;
+  var rate = -5;
+  for(let i=0;i<checked.length;i++){
+    input1 = Math.round(checked[i].value);
+    if(input1<=5){
+      input = 5 - Math.round(checked[i].value);
+    }else{
+      input = 5;
+    }
+    note[i].innerHTML = i+1;
+    for(let j = i*5; j<(i+1)*5 -input; j++){
+        check_rate[j].classList.add("checked")
+    }
+  }
+
+</script>
+
+</body>
+</html>

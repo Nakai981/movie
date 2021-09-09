@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="ads1">
+      <div class="location location-1">
+        <span class="fa fa-close text-danger" onclick="closeAds(1)"></span>
+        <a href="" id="ads-banner-1">
+          <img src="https://thumbs.gfycat.com/UnknownElaborateCanadagoose-size_restricted.gif"  alt="">
+        </a>
+      </div>
+      <div class="location location-2">
+        <span class="fa fa-close text-danger" onclick="closeAds(2)"></span>
+        <a href="" id="ads-banner-2">
+          <img src="https://lh3.googleusercontent.com/proxy/hByh-u1JIZtkC2AI9ijoZ32gSkDanagKJHmJRwNPOBBoJADsI6HZMFuMPM8V6HcbI1Pq59NMeXzq-A"  alt="">
+
+        </a>
+      </div>
+      <div class="location location-3">
+        <a href="">
+          <img src="https://media1.giphy.com/media/mCbAmJ6WdChyQU2RW3/giphy.gif" width="20px" height="20px"  alt="">
+        </a>
+      </div>
+
+      <script>
+          function closeAds(e){
+            let banner_1 = document.getElementById("ads-banner-1")
+            let banner_2 = document.getElementById("ads-banner-2")
+              if(e == 1){
+                banner_1.classList.add("non-active")
+              }
+            if(e == 2){
+              banner_2.classList.add("non-active")
+            }
+          }
+      </script>
+
+    </div>
+
+    <div th:fragment="ads2">
+      <div class="video-banner" id="video-ads" >
+        <span class="" id="video-close" onclick="turnUpAds()"><i class="fa fa-angle-double-right"></i> Skip</span>
+        <a href="" >
+          <video  th:src="@{/img/ads.mp4}" muted autoplay ></video>
+        </a>
+      </div>
+        <script>
+            const video_ads = document.getElementById("video-ads");
+            const video_click = document.getElementById("video-click");
+            const video_close = document.getElementById("video-close");
+
+            setTimeout(function(e){
+                video_close.classList.add('active')
+            },10000)
+
+            setTimeout(function(e){
+                video_ads.classList.add('active')
+            },20000)
+
+            function turnUpAds(){
+              video_ads.classList.add('active')
+            }
+
+
+        </script>
+    </div>
+</body>
+</html>

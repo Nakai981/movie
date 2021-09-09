@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Movie Action</title>
+  <!--/*/ <th:block th:include="fragments/head-admin-fragment.html :: head" ></th:block> /*/-->
+
+</head>
+<body class="hold-transition sidebar-mini">
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0&appId=503728467334556&autoLogAppEvents=1" nonce="QlwETAaz"></script>
+<div class="wrapper">
+  <!--/*/ <th:block th:include="fragments/navigation-admin-fragment.html :: header" ></th:block> /*/-->
+  <!--/*/ <th:block th:include="fragments/navigation-admin-fragment.html :: sidebar" ></th:block> /*/-->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Movie Action Form </h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#" class="text-danger">Home</a></li>
+              <li class="breadcrumb-item active">Movie Action Form</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+      <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+
+          <div class="card-body">
+            <form action="/admin/movie/save" method="post"  style="width: 100% !important;">
+
+              <div class="row" style="width: 100%">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Name </label>
+                    <th:block th:if="${movie} == null">
+
+                      <input type="hidden" value="0" name="movie_id"/>
+                      <input type="text" class="form-control" name="movie_name"  placeholder="Enter movie name" required>
+                    </th:block>
+                    <th:block th:if="${movie} != null">
+                      <input type="hidden" th:value="${movie.id}" name="movie_id"/>
+                      <input type="text" class="form-control" name="movie_name" th:value="${movie.movie_name}" placeholder="Enter movie_name" required>
+                    </th:block>
+                  </div>
+                  <div class="form-group">
+                    <label >Image </label>
+                    <th:block th:if="${movie} != null">
+                      <input type="text" class="form-control" id="fname" onkeyup="previewImage()" th:value="${movie.movie_image}" name="movie_image" placeholder="Enter image" required>
+                    </th:block>
+                    <th:block th:if="${movie} == null">
+                      <input type="text" class="form-control"id="fname" onkeyup="previewImage()" name="movie_image" placeholder="Enter image" required>
+                    </th:block>
+                  </div>
+                  <div class="form-group">
+                    <label >Trailer </label>
+                    <th:block th:if="${movie} != null">
+                      <input type="text" class="form-control" id="tname" onkeyup="previewTrailer()" th:value="${movie.movie_trailer}" name="movie_trailer" placeholder="Enter url trailer" required>
+                    </th:block>
+                    <th:block th:if="${movie} == null">
+                      <input type="text" class="form-control" id="tname" onkeyup="previewTrailer()" name="movie_trailer" placeholder="Enter url trailer" required>
+                    </th:block>
+                  </div>
+                  <div class="form-group">
+                    <label >Comment FB </label>
+                    <th:block th:if="${movie} != null">
+                      <input type="text" class="form-control" th:value="${movie.movie_comment}" name="movie_comment" placeholder="Enter url comment" required>
+                    </th:block>
+                    <th:block th:if="${movie} == null">
+                      <input type="text" class="form-control" id="fbname" onkeyup="previewFB()" name="movie_comment" placeholder="Enter url comment" required>
+                    </th:block>
+                  </div>
+                  <div class="form-group">
+                    <label>Year </label>
+                    <th:block th:if="${movie} != null">
+                      <input type="date" class="form-control" name="movie_year" th:value="${movie.release_year}" placeholder="" required>
+                    </th:block>
+                    <th:block th:if="${movie} == null">
+                      <input type="date" class="form-control" name="movie_year"  placeholder="" required>
+                    </th:block>
+                  </div>
+                  <div class="form-group">
+                    <label>Length </label>
+                    <th:block th:if="${movie} != null">
+                      <input type="number" class="form-control" name="movie_length" th:value="${movie.movie_length}" placeholder="Enter length episode" required>
+                    </th:block>
+                    <th:block th:if="${movie} == null">
+                      <input type="number" class="form-control" name="movie_length"  placeholder="Enter length episode" required>
+                    </th:block>
+                  </div>
+                  <div class="form-group">
+                    <label>Introduce </label>
+                    <th:block th:if="${movie} != null" >
+                      <textarea rows="3"  class="form-control" name="movie_introduce" th:text="${movie.movie_introduction}" placeholder="Enter introduce movie" required></textarea>
+                    </th:block>
+                    <th:block th:if="${movie} == null">
+                      <textarea rows="3"  class="form-control" name="movie_introduce"  placeholder="Enter introduce movie" required></textarea>
+                    </th:block>
+                  </div>
+
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-6">
+
+                      <div class="form-group">
+                        <label>Total Episode </label>
+                        <th:block th:if="${movie} != null">
+                          <input type="number" class="form-control" name="movie_total" th:value="${movie.total_episodes}" placeholder="Enter total episode" required>
+                        </th:block>
+                        <th:block th:if="${movie} == null">
+                          <input type="number" class="form-control" name="movie_total"  placeholder="Enter total episode" required>
+                        </th:block>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleSelectRounded0">Type</label>
+                        <select class="custom-select rounded-0" name="movie_type" id="exampleSelectRounded0">
+
+                          <th:block th:if="${movie} == null">
+                            <option value="SERIES" >SERIES</option>
+                            <option value="SHORT" >SHORT</option>
+                          </th:block>
+                          <th:block th:if="${movie} != null">
+                            <th:block th:if="${movie.movie_type} == 'SERIES'">
+                              <option value="SERIES" selected >SERIES</option>
+                              <option value="SHORT" >SHORT</option>
+                            </th:block>
+                            <th:block th:if="${movie.movie_type} == 'SHORT'">
+                              <option value="SERIES" >SERIES</option>
+                              <option value="SHORT" selected >SHORT</option>
+                            </th:block>
+                          </th:block>
+
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Nation</label>
+                        <select class="custom-select rounded-0" name="movie_nation">
+                          <th:block th:if="${movie} == null">
+                            <th:block th:each="item : ${nations}">
+                              <option th:value="${item.id}"  th:text="${item.nation_name}"></option>
+                            </th:block>
+                          </th:block>
+                          <th:block th:if="${movie} != null">
+                            <th:block th:each="item : ${nations}">
+                              <th:block th:if="${nation.id} == ${item.id}">
+                                <option th:value="${item.id}" selected  th:text="${item.nation_name}"></option>
+                              </th:block>
+                              <th:block th:if="${nation.id} != ${item.id}">
+                                <option th:value="${item.id}"   th:text="${item.nation_name}"></option>
+                              </th:block>
+                            </th:block>
+                          </th:block>
+
+                        </select>
+                      </div>
+                      <div class="form-group overflow-auto h-50">
+                        <label >Category </label>
+                        <th:block th:if="${movie} == null">
+                          <th:block th:each="item : ${categories}">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" name="movie_category" id="flexRadioDefault1" th:value="${item.id}">
+                                  <label class="form-check-label" for="flexRadioDefault1" th:text="${item.category_name}"></label>
+                                </div>
+                          </th:block>
+                        </th:block>
+
+                        <th:block th:if="${movie} != null">
+
+                          <th:block th:each="item : ${categories}">
+
+                              <th:block th:if="${item.checkbox} == true">
+                                <div class="form-check">
+                                  <input class="form-check-input"  checked type="checkbox" name="movie_category" id="flexRadioDefault1" th:value="${item.id}">
+                                  <label class="form-check-label" for="flexRadioDefault1" th:text="${item.category_name}"></label>
+                                </div>
+                              </th:block>
+                            <th:block th:if="${item.checkbox} == false">
+                              <div class="form-check">
+                                <input class="form-check-input"   type="checkbox" name="movie_category" id="flexRadioDefault1" th:value="${item.id}">
+                                <label class="form-check-label" for="flexRadioDefault1" th:text="${item.category_name}"></label>
+                              </div>
+                            </th:block>
+
+
+                          </th:block>
+                        </th:block>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="d-flex align-items-center flex-column">
+                        <h5 class="text-danger"><strong>Preview Image</strong></h5>
+                        <div style="width: 100px; height: 7px;background-color: #A21D0A; margin-bottom: 5px"></div>
+                        <th:block th:if="${movie} == null">
+                          <img src=""  id="image" style="border-radius: 10px;" width="190px" alt="">
+                        </th:block>
+                        <th:block th:if="${movie} != null">
+                          <img th:src="${movie.movie_image}"  id="image" style="border-radius: 10px;" width="190px" alt="">
+                        </th:block>
+                        <h5 class="text-danger mt-2"><strong>Preview Trailer</strong></h5>
+                        <div style="width: 100px; height: 7px;background-color: #A21D0A; margin-bottom: 5px"></div>
+                        <th:block th:if="${movie} == null">
+                          <iframe width="300" id="yt-preview" height="200" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+                        </th:block>
+                        <th:block th:if="${movie} != null">
+                          <iframe width="300" id="yt-preview" height="200" th:src="@{'https://www.youtube.com/embed/'+${movie.movie_trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+                        </th:block>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+              <div class=" d-flex justify-content-end" style="width: 100%">
+                <th:block th:if="${movie} != null">
+                  <a href="/admin/movie" class="btn btn-outline-dark mr-1">Cancel</a>
+                </th:block>
+                <button type="submit" class="btn btn-success">Save</button>
+              </div>
+            </form>
+
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </section>
+  </div>
+
+
+
+</div>
+
+<script>
+  function previewImage(){
+    var x = document.getElementById("fname");
+    document.getElementById('image').src = x.value;
+  }
+  function previewTrailer(){
+    var x = document.getElementById("tname");
+    document.getElementById('yt-preview').src = "https://www.youtube.com/embed/"+x.value;
+  }
+</script>
+
+<!--/*/ <th:block th:include="fragments/head-admin-fragment.html :: script" ></th:block> /*/-->
+
+
+</body>
+</html>

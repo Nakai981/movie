@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Movie Action</title>
+    <!--/*/ <th:block th:include="fragments/head-admin-fragment.html :: head" ></th:block> /*/-->
+
+</head>
+<body class="hold-transition sidebar-mini">
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0&appId=503728467334556&autoLogAppEvents=1" nonce="QlwETAaz"></script>
+<div class="wrapper">
+    <!--/*/ <th:block th:include="fragments/navigation-admin-fragment.html :: header" ></th:block> /*/-->
+    <!--/*/ <th:block th:include="fragments/navigation-admin-fragment.html :: sidebar" ></th:block> /*/-->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <th:block th:if="${messages == null}">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Episode Action </h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#" class="text-danger">Home</a></li>
+                                <li class="breadcrumb-item active">Episode Action Form</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- SELECT2 EXAMPLE -->
+                    <div class="card card-default">
+
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <form action="/admin/episode/save" method="post"   style="width: 100% !important;">
+
+                                        <div class="row"  style="width: 100%">
+                                            <div class="col-md-4">
+                                                <div class="form-group mt-2 mb-2 ml-2">
+                                                    <label>Episode name </label>
+                                                    <th:block th:if="${episode} == null">
+                                                        <input type="hidden" th:value="${movie_id}" name="movie_id"/>
+                                                        <input type="hidden" value="0" name="episode_id"/>
+                                                        <input type="text" class="form-control" name="episode_name"  placeholder="Enter episode name" required>
+                                                    </th:block>
+                                                    <th:block th:if="${episode} != null">
+                                                        <input type="hidden" th:value="${movie_id}" name="movie_id"/>
+                                                        <input type="hidden" th:value="${episode.id}" name="episode_id"/>
+                                                        <input type="text" class="form-control" name="episode_name" th:value="${episode.episode_name}" placeholder="Enter episode name" required>
+                                                    </th:block>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group mt-2 mb-2 ml-2">
+                                                    <label>Episode view </label>
+                                                    <th:block th:if="${episode} == null">
+                                                        <input type="text" class="form-control" name="episode_view"  placeholder="Enter episode view" required>
+                                                    </th:block>
+                                                    <th:block th:if="${episode} != null">
+                                                        <input type="number" class="form-control" name="episode_view" th:value="${episode.episode_view}" placeholder="Enter episode view " required>
+                                                    </th:block>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 d-flex justify-content-start align-items-end">
+                                                <th:block th:if="${episode} != null">
+                                                    <a th:href="@{'/admin/movie/detail?id='+${movie_id}}" class="btn btn-outline-secondary mb-2 mr-2 ml-2">Cancel</a>
+                                                </th:block>
+                                                <button type="submit" class="btn btn-success mb-2 mr-2 ml-2">Save</button>
+                                            </div>
+                                        </div>
+
+                                        <!-- /.row -->
+
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </section>
+        </th:block>
+
+        <th:block th:if="${messages != null}">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6 d-flex">
+                            <a th:href="@{'/admin/movie/detail?id='+${movie_id}}" class="d-flex align-items-center" ><i class="fa fa-arrow-left mr-4"></i></a>
+                            <h1>Episode Link Action </h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#" class="text-danger">Home</a></li>
+                                <li class="breadcrumb-item active">Episode Action Form</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- SELECT2 EXAMPLE -->
+                    <div class="card card-default">
+
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <form action="/admin/episode/server/save" method="post"   style="width: 100% !important;">
+
+                                        <div class="row"  style="width: 100%">
+                                            <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group mt-2 mb-2 ml-2">
+                                                            <label>Server</label>
+                                                            <select class="custom-select rounded-0" name="episode_server">
+                                                                <th:block th:if="${message} == null">
+                                                                    <th:block th:each="item : ${servers}">
+                                                                        <option th:value="${item.id}"  th:text="${item.server_name}"></option>
+                                                                    </th:block>
+                                                                </th:block>
+                                                                <th:block th:if="${message} != null">
+                                                                    <th:block th:each="item : ${servers}">
+                                                                        <th:block th:if="${message.getServer.getId()} == ${item.id}">
+                                                                            <option th:value="${item.id}" selected  th:text="${item.server_name}"></option>
+
+                                                                        </th:block>
+                                                                        <th:block th:if="${message.getServer.getId()} != ${item.id}">
+                                                                            <option th:value="${item.id}"  th:text="${item.server_name}"></option>
+
+                                                                        </th:block>
+
+                                                                    </th:block>
+                                                                </th:block>
+
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="form-group mt-2 mb-2 ml-2">
+                                                            <label>Link Episode</label>
+                                                            <th:block th:if="${message} == null">
+                                                                <input type="hidden"  name="message_id"   value="0">
+
+                                                                <input type="hidden"  name="movie_id"   th:value="${movie_id}">
+                                                                <input type="hidden"  name="episode_id"   th:value="${episode.id}">
+                                                                <input type="text" class="form-control" name="episode_link"  placeholder="Enter episode link" required>
+                                                            </th:block>
+                                                            <th:block th:if="${message} != null">
+                                                                <input type="hidden"  name="message_id"   th:value="${message.id}">
+                                                                <input type="hidden"  name="movie_id"   th:value="${movie_id}">
+                                                                <input type="hidden"  name="episode_id"   th:value="${episode.id}">
+                                                                <input type="text" class="form-control" name="episode_link" th:value="${message.link}" placeholder="Enter episode link " required>
+                                                            </th:block>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-4 d-flex justify-content-start align-items-end">
+                                                <th:block th:if="${message} != null">
+                                                    <a th:href="@{'/admin/episode/server?movie_id='+${movie_id}+'&episode_id='+${episode.id}}" class="btn btn-outline-secondary mb-2 mr-2 ml-2">Cancel</a>
+                                                </th:block>
+                                                <button type="submit" class="btn btn-success mb-2 mr-2 ml-2">Save</button>
+                                            </div>
+                                        </div>
+
+                                        <!-- /.row -->
+
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </section>
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Episode Link Action Form </h1>
+                        </div>
+
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <section class="content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="example2" class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Server Name</th>
+                                            <th>Episode link</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <th:block th:each="item : ${messages}">
+                                            <tr>
+                                                <td th:text="${item.id}"></td>
+
+                                                <td>
+                                                    <span th:text="${item.getServer().getServer_name()}"></span>
+                                                </td>
+                                                <td>
+                                                    <span th:text="${item.link}"></span>
+                                                </td>
+                                                <td>
+                                                    <a th:href="@{'/admin/episode/server/edit?movie_id='+${movie_id}+'&episode_id='+${episode.id}+'&message_id='+${item.id}}" class="btn btn-warning" ><i class="fa fa-edit text-light"></i></a>
+                                                    <a th:href="@{'/admin/episode/server/delete?movie_id='+${movie_id}+'&episode_id='+${episode.id}+'&message_id='+${item.id}}" class="btn btn-danger" ><i class="fa fa-trash text-light"></i></a>
+                                                </td>
+
+                                            </tr>
+                                        </th:block>
+
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Server Name</th>
+                                            <th>Episode link</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </div>
+            </section>
+        </th:block>
+
+
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Episode Action Form </h1>
+                    </div>
+
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Episode name</th>
+                                        <th>Episode view</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each="item : ${episodes}">
+                                        <tr>
+                                            <td th:text="${item.id}"></td>
+
+                                            <td>
+                                                <span th:text="${item.episode_name}"></span>
+                                            </td>
+                                            <td>
+                                                <span th:text="${item.episode_view}"></span>
+                                            </td>
+                                            <td>
+                                                <th:block th:if="${item.status == true}">
+                                                    <form action="/admin/episode/status" method="post">
+                                                        <input type="hidden" th:value="${movie_id}" name="movie_id"/>
+                                                        <input type="hidden" name="episode_id" th:value="${item.id}">
+                                                        <input type="hidden" name="episode_status" th:value="${item.status}">
+                                                        <button class="btn btn-success" type="submit">
+                                                            <i class="fa fa-eye text-light"></i>
+                                                        </button>
+
+                                                    </form>
+                                                </th:block>
+                                                <th:block th:if="${item.status == false}">
+                                                    <form action="/admin/episode/status" method="post">
+                                                        <input type="hidden" th:value="${movie_id}" name="movie_id"/>
+                                                        <input type="hidden" name="episode_id" th:value="${item.id}">
+                                                        <input type="hidden" name="episode_status" th:value="${item.status}">
+                                                        <button class="btn btn-dark" type="submit">
+                                                            <i class="fa fa-eye-slash text-light"></i>
+                                                        </button>
+                                                    </form>
+
+                                                </th:block>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{'/admin/episode/edit?movie_id='+${movie_id}+'&episode_id='+${item.id}}" class="btn btn-warning" ><i class="fa fa-edit text-light"></i></a>
+                                                <a th:href="@{'/admin/episode/delete?movie_id='+${movie_id}+'&episode_id='+${item.id}}" class="btn btn-danger" ><i class="fa fa-trash text-light"></i></a>
+                                                <a th:href="@{'/admin/episode/server?movie_id='+${movie_id}+'&episode_id='+${item.id}}" class="btn btn-primary" ><i class="fa fa-server text-light"></i></a>
+
+                                            </td>
+
+                                        </tr>
+                                    </th:block>
+
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Episode name</th>
+                                        <th>Episode view</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+
+</div>
+
+
+
+<!--/*/ <th:block th:include="fragments/head-admin-fragment.html :: script" ></th:block> /*/-->
+
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $("#example2").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+</script>
+</body>
+</html>

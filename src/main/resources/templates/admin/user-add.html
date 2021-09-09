@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>User Action</title>
+  <!--/*/ <th:block th:include="fragments/head-admin-fragment.html :: head" ></th:block> /*/-->
+
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!--/*/ <th:block th:include="fragments/navigation-admin-fragment.html :: header" ></th:block> /*/-->
+  <!--/*/ <th:block th:include="fragments/navigation-admin-fragment.html :: sidebar" ></th:block> /*/-->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>User Action Form </h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#" class="text-danger">Home</a></li>
+              <li class="breadcrumb-item active">User Action Form</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+      <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+
+          <div class="card-body">
+            <form action="/user/save" method="post"  style="width: 100% !important;">
+
+              <div class="row" style="width: 100%">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Fullname </label>
+                    <th:block th:if="${user} == null">
+
+                      <input type="hidden" value="0" name="user_id"/>
+                      <input type="text" class="form-control" name="user_fullname"  placeholder="Enter fullname" required>
+                    </th:block>
+                    <th:block th:if="${user} != null">
+                      <input type="hidden" th:value="${user.id}" name="user_id"/>
+                      <input type="text" class="form-control" name="user_fullname" th:value="${user.fullname}" placeholder="Enter fullname" required>
+                    </th:block>
+                  </div>
+                  <div class="form-group">
+                    <label>Birthday </label>
+                    <th:block th:if="${user} != null">
+                      <input type="date" class="form-control" name="user_birthday" th:value="${user.birthday}" placeholder="" required>
+                    </th:block>
+                    <th:block th:if="${user} == null">
+                      <input type="date" class="form-control" name="user_birthday"  placeholder="" required>
+                    </th:block>
+                  </div>
+                  <!-- /.form-group -->
+                  <div class="form-group">
+                    <label >Email </label>
+                    <th:block th:if="${user} != null">
+                      <input type="email" class="form-control" name="user_email" th:value="${user.email}" placeholder="Enter email" required>
+                    </th:block>
+                    <th:block th:if="${user} == null">
+                      <input type="email" class="form-control" name="user_email"  placeholder="Enter email" required>
+                    </th:block>
+                  </div>
+                  <!-- /.form-group -->
+                  <div class="form-group">
+                    <label>Role</label>
+                    <select class="custom-select rounded-0" name="user_role">
+                      <th:block th:if="${user} == null">
+                        <option value="-1"  >All</option>
+                        <th:block th:each="item : ${roles}">
+                          <option th:value="${item.id}"  th:text="${item.role_name}"></option>
+                        </th:block>
+                      </th:block>
+                      <th:block th:if="${user} != null">
+                          <th:block th:switch="${user.getRoles().size()}">
+                              <th:block th:case="2">
+                                      <option value="-1" selected >All</option>
+                                      <th:block th:each="item : ${roles}">
+                                        <option th:value="${item.id}"  th:text="${item.role_name}"></option>
+                                      </th:block>
+                              </th:block>
+
+                              <th:block th:case="1">
+                                  <option value="-1" selected >All</option>
+                                  <th:block th:each="item : ${roles}">
+                                    <th:block th:if="${user.getRoles().get(0).getId()} == ${item.id}">
+                                      <option th:value="${item.id}" selected  th:text="${item.role_name}"></option>
+                                    </th:block>
+                                    <th:block th:if="${user.getRoles().get(0).getId()} != ${item.id}">
+                                      <option th:value="${item.id}"  th:text="${item.role_name}"></option>
+                                    </th:block>
+                                  </th:block>
+                              </th:block>
+                          </th:block>
+                      </th:block>
+
+                    </select>
+                  </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleSelectRounded0">Gender</label>
+                    <select class="custom-select rounded-0" name="user_gender" id="exampleSelectRounded0">
+
+                      <th:block th:if="${user} == null">
+                        <option value="false" >Female</option>
+                        <option value="true" >Male</option>
+                      </th:block>
+                      <th:block th:if="${user} != null">
+                        <th:block th:if="${user.gender} == true">
+                          <option value="false" >Female</option>
+                          <option value="true" selected>Male</option>
+                        </th:block>
+                        <th:block th:if="${user.gender} == false">
+                          <option value="false" selected>Female</option>
+                          <option value="true" >Male</option>
+                        </th:block>
+                      </th:block>
+
+                    </select>
+                  </div>
+                  <!-- /.form-group -->
+                  <div class="form-group">
+                    <label >Phone </label>
+                    <th:block th:if="${user} != null">
+                      <input type="number" class="form-control" th:value="@{'0'+${user.phone}}" name="user_phone" placeholder="Enter phone" required>
+                    </th:block>
+                    <th:block th:if="${user} == null">
+                      <input type="number" class="form-control" name="user_phone" placeholder="Enter phone" required>
+                    </th:block>
+                  </div>
+                  <!-- /.form-group -->
+                  <div class="form-group">
+                    <label >Password </label>
+                    <input type="password" class="form-control" name="user_password" placeholder="Enter password" required>
+                  </div>
+                </div>
+                <!-- /.col -->
+              </div>
+            <!-- /.row -->
+              <div class=" d-flex justify-content-end" style="width: 100%">
+                  <button type="submit" class="btn btn-success">Save</button>
+              </div>
+            </form>
+
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </section>
+  </div>
+
+
+
+</div>
+
+
+<!--/*/ <th:block th:include="fragments/head-admin-fragment.html :: script" ></th:block> /*/-->
+
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+       http://www.liquibase.org/xml/ns/dbchangelog
+       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="Hoang" id="1">
+        <!--  user -->
+        <createTable tableName="user">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="fullname" type="VARCHAR(255)" />
+            <column name="gender" type="BOOLEAN" />
+            <column name="birthday" type="DATE" />
+            <column name="phone" type="NUMBER UNSIGNED" defaultValue="NULL"/>
+            <column name="role_id" type="BIGINT UNSIGNED" />
+            <column name="provider_id" type="BIGINT UNSIGNED" />
+            <column name="status"   type="BOOLEAN"  defaultValue="1"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="user"/>
+        </rollback>
+
+        <!--  role -->
+        <createTable tableName="role">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="role_name" type="VARCHAR(255)"/>
+            <column name="status" type="BOOLEAN" defaultValue="1"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="role"/>
+        </rollback>
+
+        <!-- provider  -->
+        <createTable tableName="provider">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="provider_name" type="VARCHAR(255)"/>
+            <column name="status" type="BOOLEAN" defaultValue="1"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="provider"/>
+        </rollback>
+
+        <!-- movie  -->
+        <createTable tableName="movie">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="movie_name" type="VARCHAR(255)"/>
+            <column name="release_year" type="YEAR(4)"/>
+            <column name="total_episodes" type="INT(10) UNSIGNED" />
+            <column name="movie_introduction" type="VARCHAR(255)"/>
+            <column name="movie_length" type="INT UNSIGNED"/>
+            <column name="movie_trailer" type="VARCHAR(255)"/>
+            <column name="movie_image" type="VARCHAR(255)"/>
+            <column name="movie_comment" type="VARCHAR(255)"/>
+            <column name="movie_type" type="VARCHAR(30)"/>
+            <column name="nation_id" type="BIGINT UNSIGNED" />
+            <column name="status" type="BOOLEAN" defaultValue="1"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="movie"/>
+        </rollback>
+
+        <!-- movie_detail  -->
+        <createTable tableName="movie_detail">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="rate" type="INT UNSIGNED" />
+            <column name="follow" type="INT UNSIGNED" />
+            <column name="movie_id" type="BIGINT UNSIGNED" />
+            <column name="user_id" type="BIGINT UNSIGNED" />
+            <column name="status" type="BOOLEAN" defaultValue="1"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="movie_detail"/>
+        </rollback>
+
+        <!-- nation  -->
+        <createTable tableName="nation">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="nation_name" type="VARCHAR(30)"/>
+            <column name="status" type="BOOLEAN" defaultValue="1"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="nation"/>
+        </rollback>
+
+
+        <!-- category_detail  -->
+        <createTable tableName="category_detail">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="movie_id" type="BIGINT UNSIGNED" />
+            <column name="category_id" type="BIGINT UNSIGNED" />
+            <column name="status" type="BOOLEAN" defaultValue="1"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="category_detail"/>
+        </rollback>
+
+        <!-- category  -->
+        <createTable tableName="category">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="category_name" type="VARCHAR(30)" />
+            <column name="status" type="BOOLEAN" defaultValue="1"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="category"/>
+        </rollback>
+
+        <!-- episode  -->
+        <createTable tableName="episode">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="episode_name" type="VARCHAR(30)" />
+            <column name="episode_view" type="INT UNSIGNED" />
+            <column name="movie_id" type="BIGINT UNSIGNED" />
+            <column name="status" type="BOOLEAN" defaultValue="1"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="episode"/>
+        </rollback>
+
+        <!-- message_error  -->
+        <createTable tableName="message_error">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="message" type="VARCHAR(255)"/>
+            <column name="episode_id" type="BIGINT UNSIGNED" />
+            <column name="status" type="BOOLEAN" defaultValue="1"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="message_error"/>
+        </rollback>
+
+        <!--   server  -->
+        <createTable tableName="server">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="server_name" type="VARCHAR(30)" />
+            <column name="server_link" type="VARCHAR(255)" />
+            <column name="server_config" type="VARCHAR(255)" defaultValue="NULL"/>
+            <column name="episode_id" type="BIGINT UNSIGNED" />
+            <column name="status" type="BOOLEAN" defaultValue="1"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="server"/>
+        </rollback>
+
+    </changeSet>
+
+
+
+
+
+</databaseChangeLog>

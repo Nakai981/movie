@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Movie Table</title>
+    <!--/*/ <th:block th:include="fragments/head-admin-fragment.html :: head" ></th:block> /*/-->
+
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!--/*/ <th:block th:include="fragments/navigation-admin-fragment.html :: header" ></th:block> /*/-->
+    <!--/*/ <th:block th:include="fragments/navigation-admin-fragment.html :: sidebar" ></th:block> /*/-->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Movie Table</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#" class="text-danger">Home</a></li>
+                            <li class="breadcrumb-item active">Movie Table</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Image</th>
+                                        <th>Information</th>
+                                        <th>Introduce</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each="item : ${movies}">
+                                        <tr>
+                                            <td th:text="${item.id}"></td>
+                                            <td>
+                                                <img th:src="${item.movie_image}" width="100px" alt="">
+                                            </td>
+                                            <td>
+                                                <span class="text-danger">Name: </span>
+                                                <span th:text="${item.movie_name}"></span>
+                                                <br>
+                                                <span class="text-danger">Year: </span>
+                                                <span th:text="${item.release_year}"></span>
+                                                <br>
+                                                <span class="text-danger">Total: </span>
+                                                <span th:text="${item.total_episodes}"></span> <span>episode</span>
+                                                <br>
+                                                <span class="text-danger">Length: </span>
+                                                <span th:text="${item.movie_length}"></span> <span>min</span>
+                                                <br>
+                                                <span class="text-danger">Type: </span>
+                                                <span th:text="${item.movie_type}"></span>
+                                                <br>
+                                                <span class="text-danger">Nation: </span>
+                                                <span th:text="${item.nation_name}"></span>
+                                                <br>
+                                                <span class="text-danger">Category: </span>
+                                                <th:block th:each="c : ${item.category_name}">
+                                                    <span th:text="${c}"></span>
+                                                </th:block>
+                                            </td>
+                                            <td>
+                                                <p th:text="${item.movie_introduction}"></p>
+                                            </td>
+                                            <td>
+                                                <th:block th:if="${item.status == true}">
+                                                    <form action="/admin/movie/status" method="post">
+                                                        <input type="hidden" name="movie_id" th:value="${item.id}">
+                                                        <input type="hidden" name="movie_status" th:value="${item.status}">
+                                                        <button class="btn btn-success" type="submit">
+                                                            <i class="fa fa-eye text-light"></i>
+                                                        </button>
+
+                                                    </form>
+                                                </th:block>
+                                                <th:block th:if="${item.status == false}">
+                                                    <form action="/admin/movie/status" method="post">
+                                                        <input type="hidden" name="movie_id" th:value="${item.id}">
+                                                        <input type="hidden" name="movie_status" th:value="${item.status}">
+                                                        <button class="btn btn-dark" type="submit">
+                                                            <i class="fa fa-eye-slash text-light"></i>
+                                                        </button>
+                                                    </form>
+
+                                                </th:block>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{'/admin/movie/detail?id='+${item.id}}" class="btn btn-primary" ><i class="fa fa-plus text-light"></i></a>
+                                                <hr>
+                                                <a th:href="@{'/admin/movie/edit?id='+${item.id}}" class="btn btn-warning" ><i class="fa fa-edit text-light"></i></a>
+                                                <hr>
+                                                <a th:href="@{'/admin/movie/delete?id='+${item.id}}" class="btn btn-danger" ><i class="fa fa-trash text-light"></i></a>
+
+                                            </td>
+
+                                        </tr>
+                                    </th:block>
+
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Image</th>
+                                        <th>Information</th>
+                                        <th>Introduce</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+
+
+</div>
+
+
+<!--/*/ <th:block th:include="fragments/head-admin-fragment.html :: script" ></th:block> /*/-->
+
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <!--/*/ <th:block th:include="fragments/head-fragment.html :: head" ></th:block> /*/-->
+
+</head>
+<body>
+<header th:insert="fragments/navigation-fragement.html :: header"></header>
+
+<div class="container">
+    <div class="row mt-4 ">
+        <div class="col">
+            <div class="login">
+                <form action="/login/process" method="post">
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <div style="margin: 20px 0px ;" class="content">
+                                    <h3 class="text-light mb-0">GROUP</h3><small class="text-light">@1080+</small>
+                                    <small style="color:#cdcdcd">Please login and join us</small>
+                                </div>
+                            </td>
+                        </tr>
+                        <th:block th:switch="${covert_status}">
+                            <th:block th:case="signup">
+                                <tr>
+
+                                    <td>
+
+                                        <label class="custom-field">
+                                            <input type="text" name="username" required/>
+                                            <span class="placeholder" >Email</span>
+                                        </label>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+
+                                        <label class="custom-field">
+                                            <input type="password" name="password" required/>
+                                            <span class="placeholder">Password</span>
+                                        </label>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <button type="submit" style="width: 100%;margin-top: 20px" class="btn btn-danger">Log in
+                                        </button>
+                                    </td>
+
+                                </tr>
+
+                            </th:block>
+                            <th:block th:case="signin">
+
+                                <!--/*/ <th:block th:include="fragments/signin-fragment.html :: sign-in" ></th:block> /*/-->
+
+                            </th:block>
+                        </th:block>
+                        <tr class="mt-4">
+                            <td>
+                                <hr>
+                            </td>
+
+                        </tr>
+                        <tr class="mt-4">
+                            <td><small class="text-light">Login by facebook, create account</small></td>
+
+                        </tr>
+                        <tr>
+                            <td style="height: 10px"></td>
+                        </tr>
+                        <tr>
+
+                            <td>
+
+                                <a href="/processLogin/facebook"
+                                   style="border-radius:50%; background-color: #2596ec; padding: 8px 14px; margin-top: 10px;"><i
+                                        class="fa fa-facebook text-light"></i></a>
+                                <a href="/signin" class="ml-1"
+                                   style="border-radius:50%;font-size: 13px;background-image: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);padding: 10px 12px; margin-top: 10px;"><i
+                                        class="fa fa-user-plus text-light"></i></a>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="fragments/footer-fragment.html ::footer"></div>
+<div th:insert="fragments/message-fragment.html ::comment"></div>
+
+<!--/*/ <th:block th:include="fragments/head-fragment.html :: script" ></th:block> /*/-->
+<!--/*/ <th:block th:include="fragments/ads-fragment.html ::ads1 "></th:block> /*/-->
+
+</body>
+</html>

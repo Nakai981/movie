@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Film Search</title>
+  <!--/*/ <th:block th:include="fragments/head-fragment.html :: head" ></th:block> /*/-->
+
+</head>
+<body>
+<header th:insert="fragments/navigation-fragement.html :: header"></header>
+
+
+<div class="container">
+  <div class="row mt-2">
+    <h6 class="text-danger mt-3"><i class="fa fa-film text-secondary"></i> | SEARCH ADVANCED</h6>
+  </div>
+  <div class="row">
+    <form action="/film/search" method="get" class="d-flex p-2" style="width: 100% !important;">
+      <div class="col-3">
+        <small class="text-secondary">Nation</small>
+
+        <select name="nation" class="form-select" style="width: 95% !important; height: 30px; font-size: 11px !important; padding: 5px 10px; background-color: #232323">
+          <th:block th:each="item : ${nations}">
+            <option th:value="${item.getId()}" class="text-light" th:text="${item.nation_name}"></option>
+          </th:block>
+        </select>
+      </div>
+      <div class="col-3">
+        <small class="text-secondary"> Category</small>
+        <select name="category" class="form-select" style="width: 95% !important; height: 30px; font-size: 11px !important; padding: 5px 10px; background-color: #232323">
+        <th:block th:each="item : ${categories}">
+          <option th:value="${item.getId()}" class="text-light" th:text="${item.category_name}"></option>
+        </th:block>
+        </select>
+      </div>
+      <div class="col-3">
+        <small class="text-secondary">Type</small>
+        <select name="type" class="form-select" style="width: 95% !important; height: 30px; font-size: 11px !important; padding: 5px 10px; background-color: #232323">
+          <option value="series" class="text-light">SERIES</option>
+          <option value="short" class="text-light">SHORT</option>
+        </select>
+      </div>
+      <div class="col-3 d-flex align-items-end">
+        <button class="btn btn-danger d-flex align-items-center justify-content-center "type="submit" style="height: 30px;"><i class="fa fa-search text-light" style="font-size: 11px"></i></button>
+      </div>
+    </form>
+
+
+
+  </div>
+  <div class="row mt-2">
+    <h6 class="text-danger mt-3"><i class="fa fa-film text-secondary"></i> | FILM  <small>( <th:block th:text="${filmStatus}"></th:block> ) </small>  :
+        <th:block th:text="${filmName}"></th:block>
+
+    </h6>
+  </div>
+  <div class="row">
+    <th:block th:each="item : ${movies}">
+      <a class="mr-3 mt-3" th:href="@{'/information/'+${item.id}}">
+        <div class="card-style-1">
+          <img th:src="${item.movie_image}" alt="" />
+          <div class="episode">
+            <h8>Chap
+              <p><th:block th:text="${item.episode}"/> /<th:block th:text="${item.total_episodes}"/></p>
+            </h8>
+          </div>
+          <div class="rate">
+            <p>
+              <th:block th:text="${item.rate}"/>
+
+              <i class="fa fa-star"></i>
+            </p>
+          </div>
+          <div class="play">
+            <i class="fa fa-play"></i>
+          </div>
+          <div class="infor mt-2">
+            <h5 th:text="${item.movie_name}"></h5>
+            <p>Lượt xem:  <th:block th:text="${item.view}"/> views</p>
+          </div>
+        </div>
+      </a>
+    </th:block>
+
+  </div>
+
+  <div class="row d-flex justify-content-center mt-4">
+    <a href="" class="btn btn-danger text-light mr-2 d-flex justify-content-center align-item-center" style="border-radius: 50% ;height: 40px; width: 40px">1</a>
+    <a href="" class="btn btn-outline-danger text-light mr-2 d-flex justify-content-center align-item-center" style="border-radius: 50% ;height: 40px; width: 40px">2</a>
+    <a href="" class="btn btn-outline-danger text-light mr-2 d-flex justify-content-center align-item-center" style="border-radius: 50% ;height: 40px; width: 40px">3</a>
+  </div>
+</div>
+
+<div th:insert="fragments/footer-fragment.html ::footer"></div>
+<div th:insert="fragments/message-fragment.html ::comment"></div>
+
+<!--/*/ <th:block th:include="fragments/ads-fragment.html ::ads1 "></th:block> /*/-->
+
+<!--/*/ <th:block th:include="fragments/head-fragment.html :: script" ></th:block> /*/-->
+</body>
+</html>

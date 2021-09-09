@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div th:fragment="comment" class="comment" >
+    <div class="content" id="box">
+      <div class="ml-4 d-flex flex-column">
+        <ul id="box-comment" style="background-color: rgba(0, 0, 0, 0.3); ">
+          <li><div class="d-flex flex-column mt-2" style="width: 300px; padding: 5px 25px; border-radius: 10px;background-color: #cdcdcd;">
+            <div class="d-flex justify-content-between">
+              <small class="text-danger"><strong>Hoang</strong></small>
+              <small><i class="text-danger">18 min ago</i></small>
+            </div>
+            <small class="text-dark" style="width: 300px;">What's your name? sdncdcdncdn</small>
+          </div></li>
+        </ul>
+
+        <input type="text" id="enter_name" required style="font-size: 12px; background-color: #1C1C1C;outline: none;height: 35px;border-radius: 10px; width: 300px;margin-top: 0px;border: none;padding-left: 25px; color:#a07800"  placeholder="Enter name">
+        <input type="text" id="enter_cmt" required style="font-size: 12px; background-color: #1C1C1C;outline: none;height: 35px;border-radius: 10px; width: 300px;margin-top: 5px;border: none;padding-left: 25px; color:#fff" placeholder="Enter comment">
+
+      </div>
+    </div>
+    <i class="fa fa-comments" onclick="onClickBox()" ></i>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+      let content = document.getElementById("box")
+      let key = 0;
+      const url = new URL("http://localhost:8081/api/comment")
+      let menu  = document.getElementById("box-comment");
+
+      // Interval
+      var timerId;
+
+      // click message box
+      function onClickBox(){
+        if(key == 0){
+          content.classList.add("active")
+          key = 1
+
+          timerId =  setInterval((e)=>{
+            console.log("go")
+            axios.get(url).then(response => {
+              if(response.data.length != 0 ){
+
+                menu.innerHTML = '';
+                for(let i = 0; i<response.data.length;i++){
+                  let li = document.createElement('li');
+                  li.innerHTML = getComment(response.data[i].username,response.data[i].date,response.data[i].comment,"Vip");
+                  menu.appendChild(li);
+                  // menu.removeA
+                  // console.log(response.data[i]);
+                }
+              }
+
+              // console.log(response.data);
+            })
+
+          },1000)
+
+
+        }else{
+          content.classList.remove("active")
+          key = 0
+          clearInterval(timerId)
+        }
+      }
+      function getComment(name, min, cmt,postion){
+        return '<div class="d-flex flex-column mt-2" style="width: 300px; padding: 5px 25px; border-radius: 10px;background-color: #cdcdcd;">\n' +
+                '            <div class="d-flex justify-content-between">\n' +
+                '              <p class="text-danger m-0" style="font-weight: 700;font-size: 14px">'+name+'<small class="text-success">('+postion+')</small></p>\n' +
+                '              <small><i class="text-danger">'+min+'</i></small>\n' +
+                '            </div>\n' +
+                '            <small class="text-dark" style="width: 300px;">'+cmt+'</small>\n' +
+                '          </div>'
+      }
+
+      const enter_name = document.getElementById("enter_name");
+      const enter_cmt =  document.getElementById("enter_cmt");
+      enter_cmt.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          const url_post = new URL("http://localhost:8081/api/comment/add")
+          axios.post(url_post, {
+            username: enter_name.value,
+            comment: enter_cmt.value
+          })
+                  .then((response) => {
+                    // console.log(response);
+                    enter_cmt.value = ""
+                  }, (error) => {
+                    // console.log(error);
+                  });
+        }
+      });
+
+
+    </script>
+
+  </div>
+</body>
+</html>

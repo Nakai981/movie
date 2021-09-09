@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container" th:fragment="header" style="padding: 0 !important">
+    <nav class="p-0 navbar navbar-expand-lg navbar-light">
+        <a class="logo-navbar" href="/home"><img src="/img/logo.png" class="mb-2 ml-2" width="60px" height="40px" alt="logo"></a>
+        <button class="navbar-toggler" jm type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-align-right text-light"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link text-light" href="/type/series">SERIES FILM</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-light" href="/type/short">SHORT FILM</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        CATEGORY
+                    </a>
+                    <div class="dropdown-menu row" style="background-color: #333;"
+                         aria-labelledby="navbarDropdown">
+                        <div class="dropdown-layout">
+                            <th:block th:each="item : ${categories}">
+                                <a th:href="@{'/category/'+${item.getId()}}" class="dropdown-item text-light" th:text="${item.category_name}"></a>
+                            </th:block>
+                        </div>
+                    </div>
+
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        NATION
+                    </a>
+                    <div class="dropdown-menu row" style="background-color: #333;"
+                         aria-labelledby="navbarDropdown">
+                        <div class="dropdown-layout">
+                            <th:block th:each="item : ${nations}">
+                                <a th:href="@{'/nation/' + ${item.getId()}}" class="dropdown-item text-light" th:text="${item.nation_name}"></a>
+                            </th:block>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        SEARCH
+                    </a>
+                    <div class="dropdown-menu row" style="background-color: #333;"
+                         aria-labelledby="navbarDropdown">
+                        <div class="dropdown-layout">
+                            <form>
+                                <input type="text" placeholder="film">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item active">
+                    <th:block th:if="${session.name == null}">
+                        <a class="nav-link text-danger" onclick="messageBox()" style="cursor: pointer">MOVIE BOX</a>
+                    </th:block>
+                    <th:block th:if="${session.name != null}">
+                        <a class="nav-link text-danger" style="cursor: pointer" href="/box">MOVIE BOX</a>
+                    </th:block>
+
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+
+
+                    <th:block th:if="${session.name == null}">
+                        <a class="pl-2 text-light" href="/login"
+                           style="font-size: 20px; margin-left: 5px;margin-top: -3px;">
+                            <i class="fa fa-user"></i>
+                        </a>
+                    </th:block>
+                    <th:block th:if="${session.name != null}">
+                        <a class="nav-link dropdown-toggle text-light" href="#" id="" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <small th:text="${session.name}" style="font-size: 15px"></small>
+                        </a>
+                        <div class="dropdown-menu row" style="background-color: #333;"
+                             aria-labelledby="navbarDropdown">
+                            <div class="dropdown-layout">
+                                <a href="" class="dropdown-item text-light">Information Account</a>
+                                <a href="/logout" class="dropdown-item text-danger">Logout</a>
+                            </div>
+                        </div>
+                    </th:block>
+
+
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+    <script>
+        function messageBox(){
+            alert("Please login now")
+        }
+    </script>
+</div>
+
+</body>
+</html>

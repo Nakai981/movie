@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Message Manager</title>
+    <!--/*/ <th:block th:include="fragments/head-admin-fragment.html :: head" ></th:block> /*/-->
+
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!--/*/ <th:block th:include="fragments/navigation-admin-fragment.html :: header" ></th:block> /*/-->
+    <!--/*/ <th:block th:include="fragments/navigation-admin-fragment.html :: sidebar" ></th:block> /*/-->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Message</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#" class="text-danger">Home</a></li>
+                            <li class="breadcrumb-item active">Message</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+
+
+
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Message name</th>
+                                        <th>Status</th>
+                                        <th>Fix</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each="item : ${messages}">
+                                        <tr>
+                                            <td th:text="${item.id}"></td>
+
+                                            <td>
+                                                <span th:text="${item.message}"></span>
+                                            </td>
+                                            <td>
+                                                <th:block th:if="${item.status == true}">
+                                                    <form action="/admin/message/status" method="post">
+                                                        <input type="hidden" name="message_id" th:value="${item.id}">
+                                                        <input type="hidden" name="message_status" th:value="${item.status}">
+                                                        <button class="btn btn-success" type="submit">
+                                                            <i class="fa fa-eye text-light"></i>
+                                                        </button>
+
+                                                    </form>
+                                                </th:block>
+                                                <th:block th:if="${item.status == false}">
+                                                    <form action="/admin/message/status" method="post">
+                                                        <input type="hidden" name="message_id" th:value="${item.id}">
+                                                        <input type="hidden" name="message_status" th:value="${item.status}">
+                                                        <button class="btn btn-dark" type="submit">
+                                                            <i class="fa fa-eye-slash text-light"></i>
+                                                        </button>
+                                                    </form>
+
+                                                </th:block>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{'/admin/episode/server/edit?movie_id='+${item.movie_id}+'&episode_id='+${item.episode.id}+'&message_id='+${item.id}}" class="btn btn-warning" ><i class="fa fa-edit text-light"></i></a>
+                                            </td>
+
+                                        </tr>
+                                    </th:block>
+
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Message name</th>
+                                        <th>Status</th>
+                                        <th>Fix</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+
+
+</div>
+
+
+<!--/*/ <th:block th:include="fragments/head-admin-fragment.html :: script" ></th:block> /*/-->
+
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+</script>
+</body>
+</html>

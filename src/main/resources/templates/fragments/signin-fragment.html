@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="sign-in">
+        <tr>
+
+            <td>
+
+                <label class="custom-field">
+                    <input type="text" required/>
+                    <span class="placeholder">Fullname</span>
+                </label>
+
+            </td>
+        </tr>
+        <tr class="mt-4">
+
+            <td>
+                <select class="form-select">
+                    <option selected class="text-light">Male</option>
+                    <option value="1" class="text-light">Female</option>
+                </select>
+
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+
+                <label class="custom-field">
+                    <input type="text" required/>
+                    <span class="placeholder">Email</span>
+                </label>
+
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+
+                <label class="custom-field">
+                    <input placeholder="Birthday" class="textbox-n" type="text" onfocus="(this.type='date')" id="date" required>
+<!--                    <span class="placeholder">Birthday</span>-->
+                </label>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <label class="custom-field">
+                    <input type="password" required/>
+                    <span class="placeholder">Password</span>
+                </label>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit" style="width: 100%;margin-top: 20px" class="btn btn-danger">Log in
+                </button>
+            </td>
+
+        </tr>
+    </div>
+</body>
+</html>

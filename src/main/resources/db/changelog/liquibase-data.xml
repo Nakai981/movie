@@ -1,0 +1,306 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+       http://www.liquibase.org/xml/ns/dbchangelog
+       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="Hoang" author="1">
+        <!-- role -->
+        <insert tableName="role">
+            <column name="id" value="null"></column>
+            <column name="role_name" value="ADMIN"/>
+        </insert>
+        <insert tableName="role">
+            <column name="id" value="null"></column>
+            <column name="role_name" value="MANAGER"/>
+        </insert>
+        <insert tableName="role">
+            <column name="id" value="null"></column>
+            <column name="role_name" value="MEMBER"/>
+
+        </insert>
+
+        <!-- provider -->
+        <insert tableName="provider">
+            <column name="id" value="null"></column>
+            <column name="provider_name" value="System"/>
+        </insert>
+
+        <!-- user -->
+        <insert tableName="user">
+            <column name="email" value="phanhuyhoang783@gmail.com"/>
+            <column name="password" value="hoang1412"/>
+            <column name="fullname" value="Phan Huy Hoàng" />
+            <column name="gender" value="true" />
+            <column name="birthday" value="19991020" />
+            <column name="phone" value="0963603982"/>
+            <column name="role_id" value="1" />
+            <column name="provider_id" value="1" />
+            <column name="status"   value="1"/>
+        </insert>
+        <insert tableName="user">
+            <column name="email" value="HaAnh@gmail.com"/>
+            <column name="password" value="haanh2828"/>
+            <column name="fullname" value="Hà Thị Anh" />
+            <column name="gender" value="false" />
+            <column name="birthday" value="20041030" />
+            <column name="phone" value="08963253"/>
+            <column name="role_id" value="3" />
+            <column name="provider_id" value="1" />
+            <column name="status"   value="1"/>
+        </insert>
+        <insert tableName="user">
+            <column name="email" value="nguyenkhoi@gmail.com"/>
+            <column name="password" value="khoi@123"/>
+            <column name="fullname" value="Nguyễn Minh Anh Khôi" />
+            <column name="gender" value="true" />
+            <column name="birthday" value="19980121" />
+            <column name="phone" value="056984896"/>
+            <column name="role_id" value="3" />
+            <column name="provider_id" value="1" />
+            <column name="status"   value="1"/>
+        </insert>
+        <insert tableName="user">
+            <column name="email" value="hothuphuong982@gmail.com"/>
+            <column name="password" value="ho20"/>
+            <column name="fullname" value="Hồ Thị Thu Phương" />
+            <column name="gender" value="false" />
+            <column name="birthday" value="19921201" />
+            <column name="phone" value="056548899"/>
+            <column name="role_id" value="2" />
+            <column name="provider_id" value="1" />
+            <column name="status"   value="1"/>
+        </insert>
+        <insert tableName="user">
+            <column name="email" value="trinhvanthe989@gmail.com"/>
+            <column name="password" value="the#1"/>
+            <column name="fullname" value="Trịnh Văn Thế" />
+            <column name="gender" value="true" />
+            <column name="birthday" value="20020715" />
+            <column name="phone" value="086956548"/>
+            <column name="role_id" value="3" />
+            <column name="provider_id" value="1" />
+            <column name="status"   value="1"/>
+        </insert>
+
+
+        <!-- nation  -->
+        <insert tableName="nation">
+            <column name="id" value="null" />
+            <column name="nation_name" value="VIET NAM"/>
+        </insert>
+        <insert tableName="nation">
+            <column name="id" value="null" />
+            <column name="nation_name" value="CHINA"/>
+        </insert>
+        <insert tableName="nation">
+            <column name="id" value="null" />
+            <column name="nation_name" value="KOREA"/>
+        </insert>
+        <insert tableName="nation">
+            <column name="id" value="null" />
+            <column name="nation_name" value="JAPAN"/>
+        </insert>
+        <insert tableName="nation">
+            <column name="id" value="null" />
+            <column name="nation_name" value="AMERICA"/>
+        </insert>
+        <insert tableName="nation">
+            <column name="id" value="null" />
+            <column name="nation_name" value="AUSTRALIA"/>
+        </insert>
+        <insert tableName="nation">
+            <column name="id" value="null" />
+            <column name="nation_name" value="ENGLAND"/>
+        </insert>
+
+        <!-- category  -->
+        <insert tableName="category">
+            <column name="id" value="null" />
+            <column name="category_name" value="ACTION"  />
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="null" />
+            <column name="category_name" value="HORROR"  />
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="null" />
+            <column name="category_name" value="HISTORY"  />
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="null" />
+            <column name="category_name" value="HUMOR"  />
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="null" />
+            <column name="category_name" value="SCHOOL"  />
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="null" />
+            <column name="category_name" value="VER 18+"  />
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="null" />
+            <column name="category_name" value="ANIME"  />
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="null" />
+            <column name="category_name" value="CM ANIMATION"  />
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="null" />
+            <column name="category_name" value="LIVE ACTION"  />
+        </insert>
+
+        <!-- movie  -->
+        <insert tableName="movie">
+            <column name="id" value="NULL" />
+            <column name="movie_name" value="BÀN TAY DIỆT QUỶ"/>
+            <column name="release_year" value="2019"/>
+            <column name="total_episodes" value="1" />
+            <column name="movie_introduction" value="Sau khi bản thân bỗng nhiên sở hữu 'Bàn tay diệt quỷ', võ sĩ MMA Yong Hoo (Park Seo Joon thủ vai) đã dấn thân vào hành trình trừ tà, trục quỷ đối đầu với Giám Mục Bóng Tối (Woo Do Hwan) – tên quỷ Satan đột lốt người. Từ đó sự thật về cái chết của cha Yong Hoo cũng dần được hé lộ cũng như nguyên nhân anh trở thành 'người được chọn'."/>
+            <column name="movie_length" value="128"/>
+            <column name="movie_trailer" value="https://www.youtube.com/embed/9nyV-pgMX4I"/>
+            <column name="movie_image" value="https://www.cgv.vn/media/catalog/product/cache/1/small_image/190x260/052b7e4a4f6d2886829431e534ef7a43/b/t/btdq_main_poster_1.jpg"/>
+            <column name="movie_comment" value="https://www.facebook.com/movie/group5/1"/>
+            <column name="movie_type" value="SHORT"/>
+            <column name="nation_id" value="3" />
+        </insert>
+        <insert tableName="movie">
+            <column name="id" value="NULL" />
+            <column name="movie_name" value="PALM SPRINGS: MỞ MẮT THẤY HÔM QUA"/>
+            <column name="release_year" value="2020"/>
+            <column name="total_episodes" value="1" />
+            <column name="movie_introduction" value="Mở Mắt Thấy Hôm Qua - Palm Springs bộ phim thuộc thể loại hài hước, viễn tưởng, bí ẩn, có thời lượng 90 phút của đạo diễn Max Barbakow chỉ đạo. Nội dung phim Mở Mắt Thấy Hôm Qua - Palm Springs xoay quanh câu chuyện về anh chàng Nyles và cô nàng Sarah đã mắc kẹt lại trong một vòng lập thời gian. Cả hai vô tình gặp nhau tại một đám cưới. Sau đó cô nàng Sarah đã gặp một tai nạn tại đám cưới và được Nyles cứu giúp nên bắt đầu cảm nắng anh từ đó. Cả hai đã dần dần tìm hiểu và bắt đầu nảy sinh tình cảm, cuộc tình đầy lãng mạn diễn ra trong một ngày lập đi lập lại nhiều lần."/>
+            <column name="movie_length" value="128"/>
+            <column name="movie_trailer" value="https://www.youtube.com/embed/kvf3niVs7oM"/>
+            <column name="movie_image" value="https://www.cgv.vn/media/catalog/product/cache/1/small_image/190x260/052b7e4a4f6d2886829431e534ef7a43/t/e/teaser_poster_1_1__1.jpg"/>
+            <column name="movie_comment" value="https://www.facebook.com/movie/group5/2"/>
+            <column name="movie_type" value="SHORT"/>
+            <column name="nation_id" value="3" />
+        </insert>
+        <insert tableName="movie">
+            <column name="id" value="NULL" />
+            <column name="movie_name" value="CỤC NỢ HÓA CỤC CƯNG"/>
+            <column name="release_year" value="2021"/>
+            <column name="total_episodes" value="1" />
+            <column name="movie_introduction" value="Cục Nợ Hóa Cục Cưng là câu chuyện về một gia đình 'kì lạ' lấy bối cảnh vào năm 1993 ở Incheon. Du-seok và Jong-bae là hai gã chuyên đòi nợ thuê có máu mặt. Để uy hiếp một con nợ, cả hai đã giữ Seung-yi - một bé gái 9 tuổi làm vật thế chấp cho số nợ của mẹ cô bé. Tuy nhiên, mẹ của Seung-yi lại bị trục xuất, và hai ông chú đành nhận trách nhiệm trông chừng Seung-yi đến khi cô bé được một gia đình giàu có và tử tế nhận nuôi. Khi phát hiện ra Seung-yi nhỏ bé bị bán đi làm công cho một bà chủ vô trách nhiệm, Du-seok và Jong-bae đã tìm đến để chuộc lại cô. Mặc dù Seung-yi vốn là 'cục nợ' Du-seok và Jong-bae không hề mong muốn, cô bé dần trở thành cục cưng yêu quý và cả 3 sống bên nhau như một gia đình."/>
+            <column name="movie_length" value="110"/>
+            <column name="movie_trailer" value="https://www.youtube.com/embed/2zSzDlaN-9w"/>
+            <column name="movie_image" value="https://www.cgv.vn/media/catalog/product/cache/1/small_image/190x260/052b7e4a4f6d2886829431e534ef7a43/r/s/rsz_main_poster_cncc_1.jpg"/>
+            <column name="movie_comment" value="https://www.facebook.com/movie/group5/3"/>
+            <column name="movie_type" value="SHORT"/>
+            <column name="nation_id" value="3" />
+        </insert>
+        <insert tableName="movie">
+            <column name="id" value="NULL" />
+            <column name="movie_name" value="ĐIỆP VIÊN SIÊU LẦY"/>
+            <column name="release_year" value="2020"/>
+            <column name="total_episodes" value="1" />
+            <column name="movie_introduction" value="Khi đặc vụ CIA Jason Jones - hoặc JJ (Dave Bautista) - bị giáng cấp xuống một chi tiết giám sát nhẹ, anh ta thấy mình đang ở trong lòng thương xót của một cô bé 9 tuổi ngọt ngào nhưng kiên quyết, Sophie (Chloe Coleman), người sử dụng công nghệ của cô. sự thông minh và thông minh trên đường phố để tìm ra nơi ẩn náu bí mật của JJ gần căn hộ mà cô ở chung với mẹ. Để đổi lấy việc không thổi bay vỏ bọc của JJ, Sophie thuyết phục anh dành thời gian cho cô và dạy cô làm điệp viên. Bất chấp sự miễn cưỡng của mình, JJ thấy anh không phù hợp với sự quyến rũ, trí thông minh và năng khiếu gián điệp của Sophie (CHẠY LẠI TỪ NGÀY 5 THÁNG 5)"/>
+            <column name="movie_length" value="101"/>
+            <column name="movie_trailer" value="https://www.youtube.com/embed/5IMIdd3iq6A"/>
+            <column name="movie_image" value="https://www.cgv.vn/media/catalog/product/cache/1/small_image/190x260/052b7e4a4f6d2886829431e534ef7a43/m/a/main-poster_ms1_1.jpg"/>
+            <column name="movie_comment" value="https://www.facebook.com/movie/group5/4"/>
+            <column name="movie_type" value="SHORT"/>
+            <column name="nation_id" value="5" />
+        </insert>
+        <insert tableName="movie">
+            <column name="id" value="NULL" />
+            <column name="movie_name" value="CHIẾN BINH CUỐI CÙNG: CỘI NGUỒN CỦA QUỶ"/>
+            <column name="release_year" value="2017"/>
+            <column name="total_episodes" value="1" />
+            <column name="movie_introduction" value="The Last Warrior mang đến một thế giới pha lẫn huyền bí và hiện đại khi xoay quanh Ivan Naydenov (Viktor Khorinyak) – một chàng trai mồ côi sống tại Moscow bằng nghề lừa đảo. Ivan tự nhận là “pháp sư trắng” và thường xuyên dùng những trò ảo thuật tâm linh, nghi lễ giả để lấy tiền của khách hàng. Một ngày nọ, trong lúc đang chạy trốn, Ivan bất ngờ bị kéo đến thế giới phép thuật Belogorye – một thế giới song song thời Trung cổ với các sinh vật huyền bí trong truyện dân gian Nga. Anh chàng được hé lộ là con trai bị thất lạc của người anh hùng Ilya Muromets. Tại đây, Ivan phải đối mặt với nữ pháp sư Varvara (Ekaterina Vilkova) độc ác và hoàng tử Dobrynya Nikitich (Yevgeny Dyatlov). Vốn từng là một anh hùng, Dobrynya đã bị tha hóa và khao khát sự bất tử từ thanh gươm phép thuật Kladenets. Gã cùng Varvara đã hóa đá hoặc giam cầm hầu hết các sinh vật huyền bí và những người hùng khác. Với sự giúp đỡ của những người bạn mới, chàng trai tới từ tương lai đã chiếm được Kladenets, đánh bại kẻ thù. Giải phóng tất cả những ai trúng bùa phép hay bị Varvara giam cầm. Ivan chọn ở lại xứ Belogorye, cưới nàng “công chúa ếch” Vasilisa (Mila Sivatskaya) xinh đẹp. Anh chàng còn có khả năng di chuyển qua lại giữa hai thế giới.  Tuy nhiên, Varvara đã trốn thoát và tìm đến gặp mẹ mình là Galina (Elena Valyushkina) – vốn đang ẩn mình dưới vỏ bọc lao công của Ivan ở thời hiện đại. Hóa ra, cả hai âm mưu lợi dụng Dobrynya từ đầu để thống trị Belogorye. Kế hoạch thất bại khiến chúng phải tìm đến một thế lực tà ác"/>
+            <column name="movie_length" value="128"/>
+            <column name="movie_trailer" value="https://www.youtube.com/embed/NFXni4y-1Hw"/>
+            <column name="movie_image" value="https://www.cgv.vn/media/catalog/product/cache/1/small_image/190x260/052b7e4a4f6d2886829431e534ef7a43/p/o/poster-the-last-warrior_1__1.jpg"/>
+            <column name="movie_comment" value="https://www.facebook.com/movie/group5/5"/>
+            <column name="movie_type" value="SHORT"/>
+            <column name="nation_id" value="4" />
+        </insert>
+        <insert tableName="movie">
+            <column name="id" value="NULL" />
+            <column name="movie_name" value="THÁM TỬ LỪNG DANH CONAN: VIÊN ĐẠN ĐỎ"/>
+            <column name="release_year" value="2020"/>
+            <column name="total_episodes" value="1" />
+            <column name="movie_introduction" value="Nhật Bản đang tổ chức Đại hội Thể thao Thế giới sắp diễn ra, sự kiện thể thao lớn nhất thế giới, tại Tokyo. “Viên đạn Nhật Bản”, tàu tuyến tính siêu dẫn ống chân không đầu tiên trên thế giới, được chế tạo theo công nghệ mới nhất của Nhật Bản và được hẹn giờ trùng với lễ khai mạc WSG."/>
+            <column name="movie_length" value="150"/>
+            <column name="movie_trailer" value="https://www.youtube.com/embed/kOh1OTokLCk"/>
+            <column name="movie_image" value="https://www.cgv.vn/media/catalog/product/cache/1/small_image/190x260/052b7e4a4f6d2886829431e534ef7a43/c/o/conan_24_-_main_poster_1__1.jpg"/>
+            <column name="movie_comment" value="https://www.facebook.com/movie/group5/6"/>
+            <column name="movie_type" value="SHORT"/>
+            <column name="nation_id" value="4" />
+        </insert>
+        <insert tableName="movie">
+            <column name="id" value="NULL" />
+            <column name="movie_name" value="TRÙM CUỐI SIÊU ĐẲNG"/>
+            <column name="release_year" value="2020"/>
+            <column name="total_episodes" value="1" />
+            <column name="movie_introduction" value="Mở đầu bộ phim với khung cảnh cựu binh đặc nhiệm - Roy Pulver, vừa thức giấc đã phải đối mặt với những sát thủ đang cố truy sát anh ta. Nhưng anh lại không có một chút lo lắng hay bất ngờ mà ngược lại, những đòn đáp trả hay né tránh cứ như thể anh đã biết trước đường đi nước bước của chúng."/>
+            <column name="movie_length" value="120"/>
+            <column name="movie_trailer" value="https://www.youtube.com/embed/mLBRFOpv_js"/>
+            <column name="movie_image" value="https://www.cgv.vn/media/catalog/product/cache/1/small_image/190x260/052b7e4a4f6d2886829431e534ef7a43/b/o/boss_level_-_payoff_poster_1__1.jpg"/>
+            <column name="movie_comment" value="https://www.facebook.com/movie/group5/7"/>
+            <column name="movie_type" value="SHORT"/>
+            <column name="nation_id" value="5" />
+        </insert>
+        <insert tableName="movie">
+            <column name="id" value="NULL" />
+            <column name="movie_name" value="ONG NHÍ PHIÊU LƯU KÝ: GIẢI CỨU CÔNG CHÚA KIẾN"/>
+            <column name="release_year" value="2019"/>
+            <column name="total_episodes" value="1" />
+            <column name="movie_introduction" value="Quá háo hức chào đón mùa xuân, Maya và Willy đã thức dậy khỏi giấc ngủ đông sớm hơn thời gian dự định. Từ đây, đôi bạn vô tình phải nhận một nhiệm vụ đặc biệt – bảo vệ và đưa quả trứng vàng đến ngôi nhà mới. Tuy nhiên, mọi rắc rối bắt đầu ập đến khi quả trứng nứt và cô công chúa kiến bé nhỏ ra đời. Maya, Willy và những người bạn đồng hành phải phối hợp cùng nhau để chăm sóc và bảo vệ công chúa kiến khỏi vô vàn nguy hiểm xung quanh. Trong hành trình đầy bất ngờ và gian nan này, Willy dần dần khám phá được một khía cạnh khác của bản thân – dịu dàng và kiên nhẫn với cô công chúa nhỏ. Bộ đôi Maya và Willy cũng đã trưởng thành hơn và tình bạn giữa họ càng trở nên thêm khăng khít và gắn bó."/>
+            <column name="movie_length" value="110"/>
+            <column name="movie_trailer" value="https://www.youtube.com/embed/YgvZViSYyKw"/>
+            <column name="movie_image" value="https://www.cgv.vn/media/catalog/product/cache/1/small_image/190x260/052b7e4a4f6d2886829431e534ef7a43/m/a/main_poster_mtb_1__1.jpg"/>
+            <column name="movie_comment" value="https://www.facebook.com/movie/group5/7"/>
+            <column name="movie_type" value="SHORT"/>
+            <column name="nation_id" value="7" />
+        </insert>
+        <insert tableName="movie">
+            <column name="id" value="NULL" />
+            <column name="movie_name" value="DƯỚI BẦU TRỜI XA CÁCH"/>
+            <column name="release_year" value="2017"/>
+            <column name="total_episodes" value="20" />
+            <column name="movie_introduction" value="Dưới bầu trời xa cách kể về câu chuyện tình yêu giữa Hải - một du học sinh Việt Nam tại Okinawa và Eri - một phóng viên bản xứ. Ấn tượng gặp gỡ ban đầu không mấy tốt đẹp đã khiến Hải cương quyết cự tuyệt khi Eri tiếp cận và muốn phỏng vấn anh. Nhưng vốn là cô gái háo thắng, Eri quyết tâm phỏng vấn Hải bằng được, thậm chí bỏ tiền ra để mua thời gian của anh. Tuy nhiên sau này, chính những lần gặp gỡ, trao đổi, chia sẻ về Việt Nam đã khiến Hải và Eri thay đổi cái nhìn về nhau, tình yêu giữa họ cũng nảy nở từ đây."/>
+            <column name="movie_length" value="110"/>
+            <column name="movie_trailer" value="https://www.youtube.com/embed/YgvZViSYyKw"/>
+            <column name="movie_image" value="https://static.247phim.com/152375/conversions/5f50b84a7973e_Under_The_Same_Sky-190_274.jpg"/>
+            <column name="movie_comment" value="https://www.facebook.com/movie/group5/8"/>
+            <column name="movie_type" value="SERIES"/>
+            <column name="nation_id" value="1" />
+        </insert>
+
+        <!-- episode  -->
+        <insert tableName="episode">
+            <column name="id" value="null"/>
+            <column name="episode_name" value="HD-Vietsub"/>
+            <column name="episode_view" value="100"/>
+            <column name="movie_id" value="1"/>
+        </insert>
+        <insert tableName="episode">
+            <column name="id" value="null"/>
+            <column name="episode_name" value="HD-Vietsub"/>
+            <column name="episode_view" value="1055"/>
+            <column name="movie_id" value="2"/>
+        </insert>
+
+
+
+        <!-- user -->
+        <insert tableName="user">
+            <column name="email" value="phanhuyhoang783@gmail.com"/>
+            <column name="password" value="hoang1412"/>
+            <column name="fullname" value="Phan Huy Hoàng" />
+            <column name="gender" value="true" />
+            <column name="birthday" value="19991020" />
+            <column name="phone" value="0963603982"/>
+            <column name="role_id" value="1" />
+            <column name="provider_id" value="1" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

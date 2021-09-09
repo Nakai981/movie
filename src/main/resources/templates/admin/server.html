@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Server Manager</title>
+    <!--/*/ <th:block th:include="fragments/head-admin-fragment.html :: head" ></th:block> /*/-->
+
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!--/*/ <th:block th:include="fragments/navigation-admin-fragment.html :: header" ></th:block> /*/-->
+    <!--/*/ <th:block th:include="fragments/navigation-admin-fragment.html :: sidebar" ></th:block> /*/-->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Server Action</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#" class="text-danger">Home</a></li>
+                            <li class="breadcrumb-item active">Server Action</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+
+        <section class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card p-2">
+
+                            <form action="/admin/server/save" method="post"   style="width: 100% !important;">
+
+                                <div class="row"  style="width: 100%">
+                                    <div class="col-md-12">
+                                        <div class="form-group mt-2 mb-2 ml-2">
+                                            <label>Server name </label>
+                                            <th:block th:if="${server} == null">
+                                                <input type="hidden" value="0" name="server_id"/>
+                                                <input type="text" class="form-control" name="server_name"  placeholder="Enter server name" required>
+                                            </th:block>
+                                            <th:block th:if="${server} != null">
+                                                <input type="hidden" th:value="${server.id}" name="server_id"/>
+                                                <input type="text" class="form-control" name="server_name" th:value="${server.server_name}" placeholder="Enter server name" required>
+                                            </th:block>
+                                        </div>
+                                        <div class="form-group mt-2 mb-2 ml-2">
+                                            <label>Server config </label>
+                                            <th:block th:if="${server} == null">
+                                                <input type="text" class="form-control" name="server_config"  placeholder="Enter config name" required>
+                                            </th:block>
+                                            <th:block th:if="${server} != null">
+                                                <input type="text" class="form-control" name="server_config" th:value="${server.server_config}" placeholder="Enter config " required>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-md-12 d-flex justify-content-end align-items-center">
+                                        <th:block th:if="${server} != null">
+                                            <a href="/admin/server" class="btn btn-outline-secondary mb-2 mr-2">Cancel</a>
+                                        </th:block>
+                                        <button type="submit" class="btn btn-success mb-2 mr-2">Save</button>
+
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Server Table</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#" class="text-danger">Home</a></li>
+                            <li class="breadcrumb-item active">Server Table</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Server name</th>
+                                        <th>Server config</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each="item : ${servers}">
+                                        <tr>
+                                            <td th:text="${item.id}"></td>
+
+                                            <td>
+                                                <span th:text="${item.server_name}"></span>
+                                            </td>
+                                            <td>
+                                                <span th:text="${item.server_config}"></span>
+                                            </td>
+                                            <td>
+                                                <th:block th:if="${item.status == true}">
+                                                    <form action="/admin/server/status" method="post">
+                                                        <input type="hidden" name="server_id" th:value="${item.id}">
+                                                        <input type="hidden" name="server_status" th:value="${item.status}">
+                                                        <button class="btn btn-success" type="submit">
+                                                            <i class="fa fa-eye text-light"></i>
+                                                        </button>
+
+                                                    </form>
+                                                </th:block>
+                                                <th:block th:if="${item.status == false}">
+                                                    <form action="/admin/server/status" method="post">
+                                                        <input type="hidden" name="server_id" th:value="${item.id}">
+                                                        <input type="hidden" name="server_status" th:value="${item.status}">
+                                                        <button class="btn btn-dark" type="submit">
+                                                            <i class="fa fa-eye-slash text-light"></i>
+                                                        </button>
+                                                    </form>
+
+                                                </th:block>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{'/admin/server/edit?id='+${item.id}}" class="btn btn-warning" ><i class="fa fa-edit text-light"></i></a>
+                                                <a th:href="@{'/admin/server/delete?id='+${item.id}}" class="btn btn-danger" ><i class="fa fa-trash text-light"></i></a>
+                                            </td>
+
+                                        </tr>
+                                    </th:block>
+
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Server name</th>
+                                        <th>Server config</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+
+
+</div>
+
+
+<!--/*/ <th:block th:include="fragments/head-admin-fragment.html :: script" ></th:block> /*/-->
+
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+    });
+</script>
+</body>
+</html>
