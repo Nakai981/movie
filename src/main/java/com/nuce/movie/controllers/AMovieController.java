@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class AMovieController {
     @Autowired private EpisodeServiceImpl episodeService;
     @Autowired private MessageServiceImpl messageService;
     @Autowired private ServerServiceImpl serverService;
+    @Autowired private DetailServiceImpl detailService;
 
     @GetMapping("/admin/movie")
     public String getMovie(ModelMap modelMap){
@@ -33,6 +35,21 @@ public class AMovieController {
         modelMap.addAttribute("active", "movie");
 
         return "admin/movie";
+    }
+    @GetMapping("/admin/follow/nomination")
+    public String followNomination(@RequestParam int id, HttpSession session){
+        int user_id = (Integer)session.getAttribute("user_id");
+        detailService.setNominate(id, user_id);
+        movieService.setNominate(id,false);
+        return "redirect:/admin/movie";
+    }
+
+    @GetMapping("/admin/cancel/nomination")
+    public String cancelNomination( @RequestParam int id, HttpSession session){
+        int user_id = (Integer)session.getAttribute("user_id");
+        detailService.cancelNominate(id, user_id);
+        movieService.setNominate(id,true);
+        return "redirect:/admin/movie";
     }
     @GetMapping("/admin/movie/add")
     public String addMovie(ModelMap modelMap){

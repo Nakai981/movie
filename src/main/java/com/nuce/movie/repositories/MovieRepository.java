@@ -20,15 +20,14 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     int getNumByMovieId(int id);
 
     @Query("select m " +
-            "from Movie m left join m.movieDetails md where m.status = true group by (m.id) order by avg(md.rate) desc ")
+            "from Movie m left join m.movieDetails md where m.status = true and md.nominations = true group by (m.id) order by md.id desc ")
     List<Movie> getAllByRate(PageRequest pageRequest);
 
     @Query("select m from Movie m left join m.episodes e where m.status = true group by (m.id) "+
             "order by max(e.id) desc ")
     List<Movie> getAllByEpisodeNew(PageRequest pageRequest);
 
-    @Query("select m from Movie m left join m.episodes e where m.status = true group by (m.id) "+
-            "order by e.episode_view asc ")
+    @Query("select m from Movie m left join m.episodes e where m.status = true group by (m.id) order by e.episode_view desc ")
     List<Movie> getAllByView(PageRequest pageRequest);
 
     @Query("select m from Nation n join n.movies m where n.id=?1 and n.status=true")
@@ -53,4 +52,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     @Query("select m " +
             "from Movie m join m.movieDetails md where m.status = true and md.user.id=?1 and md.follow= true")
     List<Movie> getAllByUserId(int id,PageRequest pageRequest);
+
+    @Query("select m from Movie m where m.status = true and m.movie_name LIKE CONCAT('%',?1,'%')")
+    List<Movie> getAllByMovieName(String name,PageRequest pageRequest);
 }

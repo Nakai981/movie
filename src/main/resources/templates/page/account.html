@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Account</title>
+  <!--/*/ <th:block th:include="fragments/head-fragment.html :: head" ></th:block> /*/-->
+
+</head>
+<body>
+<header th:insert="fragments/navigation-fragement.html :: header"></header>
+
+
+<div class="container">
+  <div class="row mt-2 d-flex flex-column justify-content-center align-items-center">
+    <h6 class="text-danger mt-3"><i class="fa fa-user text-secondary"></i> | ACCOUNT SETTING</h6>
+    <div>
+      <a onclick="covertSetting(1)" style="cursor: pointer"><small class="text-danger" id="click-information">Information Account</small>
+      </a>
+      <a onclick="covertSetting(2)" style="cursor: pointer"><small class="text-secondary" id="click-update">Update Account</small>
+      </a>
+    </div>
+
+  </div>
+<div class="row login">
+  <table id="information-setting">
+    <tr>
+
+      <td>
+
+        <label class="custom-field mr-3">
+          <input type="text" readonly th:value="${user.fullname}" name="name"/>
+        </label>
+
+
+      </td>
+      <td>
+        <select class="form-select mt-3" readonly style="width: 100%" name="gender">
+          <th:block th:if="${user.gender} == false">
+            <option  class="text-light">Male</option>
+          </th:block>
+          <th:block th:if="${user.gender} == true">
+            <option  class="text-light">Female</option>
+          </th:block>
+        </select>
+
+      </td>
+    </tr>
+    <tr class="mt-4">
+
+      <td>
+
+        <label class="custom-field mt-2 mr-3">
+          <input type="email" readonly th:value="${user.email}" name="email"/>
+        </label>
+
+      </td>
+      <td>
+
+        <label class="custom-field mt-2"   style="width: 100%";>
+          <input type="date" placeholder="birthday" readonly  th:value="${user.birthday}" style="width: 200px;" required>
+        </label>
+
+      </td>
+    </tr>
+
+    <tr >
+      <td >
+
+        <label class="custom-field mt-2 mr-3" >
+          <input type="password" readonly th:value="${user.password}" name="password"   />
+        </label>
+
+      </td>
+      <td style="width: 70px">
+
+        <label class="custom-field  mt-2" style="width: 100%;">
+          <input type="text" readonly required th:value="${role}" style="width: 300px" name="role" />
+        </label>
+
+      </td>
+    </tr>
+  </table>
+  <form method="post" style="display: none" id="update-account" action="/process/account">
+    <table>
+      <tr>
+
+        <td>
+
+          <label class="custom-field mr-3">
+            <input type="text" required th:value="${user.fullname}" name="user_fullname"/>
+            <span class="placeholder" > Fullname </span>
+          </label>
+
+
+        </td>
+        <td>
+          <select class="form-select mt-3" style="width: 100%" name="user_gender">
+          <th:block th:if="${user.gender} == false">
+            <option value="0" selected  class="text-light">Male</option>
+            <option value="1" class="text-light">Female</option>
+          </th:block>
+            <th:block th:if="${user.gender} == true">
+              <option value="1"  selected class="text-light">Female</option>
+              <option value="0"  class="text-light">Male</option>
+
+            </th:block>
+          </select>
+
+        </td>
+      </tr>
+      <tr class="mt-4">
+
+        <td >
+
+          <label class="custom-field mt-2 mr-3" >
+            <input type="password" required  name="user_password"  />
+            <span class="placeholder">Password</span>
+          </label>
+
+        </td>
+
+        <td>
+
+          <label class="custom-field mt-2"  style="width: 100%";>
+            <input placeholder="birthday"  type="date"  name="user_birthday" th:value="${user.birthday}" style="width: 200px;"  required>
+          </label>
+
+        </td>
+      </tr>
+
+      <tr >
+        <td colspan="2">
+          <button type="submit" style="width: 100%;margin-top: 20px" class="btn btn-success mt-4">Update
+          </button>
+        </td>
+
+      </tr>
+    </table>
+  </form>
+
+
+  <script>
+      let update_account = document.getElementById("update-account");
+      let information_setting = document.getElementById("information-setting");
+
+
+      const click_infor = document.getElementById("click-information");
+      const click_update = document.getElementById("click-update");
+       function covertSetting(e){
+          if(e==1){
+            click_infor.classList.remove("text-secondary");
+            click_infor.classList.add("text-danger");
+            click_update.classList.add("text-secondary");
+            click_update.classList.remove("text-danger");
+
+            update_account.style.display="none"
+            information_setting.style.display="block"
+          }else if(e==2){
+            click_update.classList.remove("text-secondary");
+            click_update.classList.add("text-danger");
+            click_infor.classList.add("text-secondary");
+            click_infor.classList.remove("text-danger");
+
+            information_setting.style.display="none"
+            update_account.style.display="block"
+          }
+      }
+  </script>
+
+</div>
+
+
+
+</div>
+
+<div th:insert="fragments/footer-fragment.html ::footer"></div>
+<div th:insert="fragments/message-fragment.html ::comment"></div>
+
+<!--/*/ <th:block th:include="fragments/ads-fragment.html ::ads1 "></th:block> /*/-->
+
+<!--/*/ <th:block th:include="fragments/head-fragment.html :: script" ></th:block> /*/-->
+</body>
+</html>

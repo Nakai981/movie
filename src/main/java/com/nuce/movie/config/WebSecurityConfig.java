@@ -11,10 +11,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -28,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/admin","/admin/**"
         ).hasAnyRole("MANAGER","ADMIN")
-                .antMatchers("/user","/user/**").hasRole("ADMIN")
+                .antMatchers("/user","/user/**","/manager/**").hasRole("ADMIN")
                 .and().formLogin().loginPage("/login")
                 .and().csrf().disable().logout().logoutSuccessUrl("/");
     }

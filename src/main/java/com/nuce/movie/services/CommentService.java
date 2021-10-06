@@ -10,7 +10,6 @@ public interface CommentService {
 
     void setSetting();
 
-
     void addComment(String username, String comment, int id);
 
     String handlingDate(LocalDateTime dateTime);

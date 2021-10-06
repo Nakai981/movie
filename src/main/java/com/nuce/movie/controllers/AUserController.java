@@ -36,17 +36,17 @@ public class AUserController {
     @PostMapping("/user/status")
     public String getStatus(@RequestParam int user_id, @RequestParam boolean user_status){
         userService.setStatus(user_id,user_status);
-        return "redirect:/admin/user";
+        return "redirect:/user";
     }
 
     @GetMapping("/user/delete")
     public String deleteUser(@RequestParam int id, Principal p){
         User u = userService.getUserByEmail(p.getName());
         if(u.getId() == id){
-            return "redirect:/admin/user";
+            return "redirect:/user";
         }
         userService.deleteUser(id);
-        return "redirect:/admin/user";
+        return "redirect:/user";
     }
 
     @GetMapping("/user/add")
@@ -74,7 +74,7 @@ public class AUserController {
 
             userService.saveUser(user_id,user_fullname,user_birthday,user_phone,user_gender,user_email,
                     user_password,1,user_role,true);
-        return "redirect:/admin/user/add";
+        return "redirect:/user/add";
     }
 
     @GetMapping("/user/edit")

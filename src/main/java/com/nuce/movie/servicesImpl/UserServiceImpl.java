@@ -100,6 +100,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmail(String s){
         return userRepository.getUserByEmail(s);
+
+    }
+
+    @Override
+    public void updateUser(int id, String name, String birthday, String pass, boolean gender) throws Exception{
+        User u = userRepository.findById(id).get();
+        u.setFullname(name);
+        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(birthday);
+        u.setBirthday(date1);
+        u.setPassword(passwordEncoder.encode(pass));
+        u.setGender(gender);
+        userRepository.save(u);
+    }
+    @Override
+    public void saveUser(User u){
+        u.setStatus(true);
+        u.setPhone(20L);
+        u.setPassword(passwordEncoder.encode(u.getPassword()));
+        u.setProvider(providerRepository.getById(1));
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleRepository.findById(3).get());
+        u.setRoles(roles);
+        userRepository.save(u);
     }
 
 //

@@ -44,6 +44,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<PurchaseDetail> purchaseDetails;
+
     private boolean status;
 
     @Transient private List<String> role_name;

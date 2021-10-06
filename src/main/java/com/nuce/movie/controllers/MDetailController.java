@@ -109,7 +109,22 @@ public class MDetailController {
             modelMap.addAttribute("num_rate_user",detailService.getMovieDetail(user_session_id,id));
 
         }
+//        Nomination
+        if(name != null){
+            String position = (String)session.getAttribute("position");
+            if(position.equals("4")){
+                int user_session_id = (int)session.getAttribute("user_id");
+                boolean checkNominate = detailService.checkNominate(id,user_session_id);
+                if(checkNominate){
+                    modelMap.addAttribute("nomination","active");
 
+                }else{
+                    modelMap.addAttribute("nomination","non_active");
+                }
+                modelMap.addAttribute("nomination_page",String.valueOf(id));
+            }
+
+        }
         //Body
 
         modelMap.addAttribute("movie_detail",movie_detail);
@@ -148,6 +163,19 @@ public class MDetailController {
         detailService.cancelFollow(id, user_id);
         return "redirect:/information/"+page;
     }
+
+    @GetMapping("/information/nomination")
+    public String followNomination(@RequestParam int user_id, @RequestParam int id, @RequestParam String page){
+        detailService.setNominate(id, user_id);
+        return "redirect:/information/"+page;
+    }
+
+    @GetMapping("/information/cancelnomination")
+    public String cancelNomination(@RequestParam int user_id, @RequestParam int id, @RequestParam String page){
+        detailService.cancelNominate(id, user_id);
+        return "redirect:/information/"+page;
+    }
+
 
 
     @RequestMapping("/information/{movie_id}/{episode_id}/{server_id}")
@@ -229,6 +257,24 @@ public class MDetailController {
             modelMap.addAttribute("num_rate_user",detailService.getMovieDetail(user_session_id,movie_id));
 
         }
+        if(name != null){
+            String position = (String)session.getAttribute("position");
+            if(position.equals("4")){
+                int user_session_id = (int)session.getAttribute("user_id");
+                boolean checkNominate = detailService.checkNominate(movie_id,user_session_id);
+                if(checkNominate){
+                    modelMap.addAttribute("nomination","active");
+
+                }else{
+                    modelMap.addAttribute("nomination","non_active");
+                }
+                String url = String.valueOf(movie_id)+"/"+String.valueOf(episode_id)+"/"+String.valueOf(server_id);
+                modelMap.addAttribute("nomination_page",url);
+            }
+
+        }
+
+
         //Body
         modelMap.addAttribute("movie_detail",movie_detail);
         modelMap.addAttribute("rate",rate_detail);

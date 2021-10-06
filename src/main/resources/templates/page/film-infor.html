@@ -91,6 +91,18 @@
                            class="btn btn-outline-warning ml-4" style="height: 35px"><i class="fa fa-plus" ></i> FOLLOW</a>
                     </th:block>
                 </th:block>
+                    <th:block th:if="${session.position} == '4'">
+                        <th:block th:if="${nomination} == 'active'">
+                            <a th:href="@{'/information/cancelnomination?id='+${movie_detail.id}+'&user_id='+${session.user_id}+'&page='+${nomination_page}}"
+                               class="btn btn-success ml-4" style="height: 35px"><i class="fa fa-angellist"></i> NOMINATIONS</a>
+
+                        </th:block>
+                        <th:block th:if="${nomination} == 'non_active'">
+                            <a th:href="@{'/information/nomination?id='+${movie_detail.id}+'&user_id='+${session.user_id}+'&page='+${nomination_page}}"
+                               class="btn btn-outline-success ml-4" style="height: 35px"><i class="fa fa-angellist"></i> NOMINATIONS</a>
+
+                        </th:block>
+                     </th:block>
                <p class="text-secondary mt-4" style="font-size: 13px;"
                    th:text="${movie_detail.movie_introduction}"></p>
                 <div class="row">

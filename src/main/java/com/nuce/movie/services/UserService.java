@@ -24,6 +24,10 @@ public interface UserService {
 
     User getUserByEmail(String s);
 
+    void updateUser(int id, String name, String birthday, String pass, boolean gender) throws Exception;
+
+    void saveUser(User u);
+
 //    int getNumberByTableUser();
 //
 //    List<User> filterUser(String user_type, String user_search, int user_role, boolean user_status, int size);

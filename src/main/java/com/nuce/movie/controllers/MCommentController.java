@@ -30,6 +30,7 @@ public class MCommentController {
         commentService.setSetting();
         return "";
     }
+
     @PostMapping(value ="/comment/add",consumes = "application/json", produces = "application/json")
     public String addComment(@RequestBody CommentApi comment, HttpSession session){
         String name = (String)session.getAttribute("name");

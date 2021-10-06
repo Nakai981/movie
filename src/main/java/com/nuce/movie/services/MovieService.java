@@ -47,6 +47,9 @@ public interface MovieService {
 
     void setStatus(int id, boolean status);
 
+    List<Movie> getAllByMovieName(String name);
+
     Movie getMovieByMovieId(int id);
 
+    void setNominate(int id, boolean status);
 }

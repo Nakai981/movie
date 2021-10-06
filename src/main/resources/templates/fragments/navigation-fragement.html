@@ -50,31 +50,26 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        SEARCH
-                    </a>
-                    <div class="dropdown-menu row" style="background-color: #333;"
-                         aria-labelledby="navbarDropdown">
-                        <div class="dropdown-layout">
-                            <form>
-                                <input type="text" placeholder="film">
-                                <button type="submit"><i class="fa fa-search"></i></button>
-                            </form>
 
-                        </div>
-                    </div>
-                </li>
 
                 <li class="nav-item active">
-                    <th:block th:if="${session.name == null}">
-                        <a class="nav-link text-danger" onclick="messageBox()" style="cursor: pointer">MOVIE BOX</a>
-                    </th:block>
-                    <th:block th:if="${session.name != null}">
-                        <a class="nav-link text-danger" style="cursor: pointer" href="/box">MOVIE BOX</a>
-                    </th:block>
+                        <a class="nav-link text-danger" style="cursor: pointer" href="/purchase">PURCHASE</a>
+                </li>
+                <li class="nav-item active">
+                    <div class="search-navigation">
+                        <form>
+                            <input type="text" placeholder="Search: movie name" id="find-name" onkeyup="searchMovie()">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                        <div class="search-movie p-2" id="search-movie">
+                            <div class="row ml-3 mb-3 ">
+                                <ul id="mv-search">
 
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -95,8 +90,17 @@
                         <div class="dropdown-menu row" style="background-color: #333;"
                              aria-labelledby="navbarDropdown">
                             <div class="dropdown-layout">
-                                <a href="" class="dropdown-item text-light">Information Account</a>
-                                <a href="/logout" class="dropdown-item text-danger">Logout</a>
+                                <ul>
+                                    <li>
+                                        <a href="/account" class="dropdown-item text-light">Information Account</a>
+                                    </li>
+                                    <li>
+                                        <a href="/box" class="dropdown-item text-light">Movie Box</a>
+                                    </li>
+                                    <li>
+                                        <a href="/logout" class="dropdown-item text-light bg-danger">Logout</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </th:block>
@@ -107,10 +111,69 @@
         </div>
 
     </nav>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         function messageBox(){
             alert("Please login now")
         }
+        function getTagMovie(id,link,name,episode, episoded,view,rate,intro){
+            return '  <a class=" mt-2 mr-3  d-flex  card-style-2"  href="/information/'+id+'" >\n' +
+                '                                    <div class="">\n' +
+                '                                        <img src="'+link+'"/>\n' +
+                '                                    </div>\n' +
+                '                                    <div class="ml-2">\n' +
+                '                                        <p class="m-0" >'+name+'</p>\n' +
+                '                                        <small class="text-light episode"> '+episode+'/'+episoded+'</small>\n' +
+                '                                        <small class="text-secondary">'+view+' view</small>\n' +
+                '                                        <small class="text-secondary"> <i class="fa fa-star text-warning"></i> '+rate+'</small>\n' +
+                '                                        <br>\n' +
+                '                                        <small class="text-secondary">'+intro+'</small>\n' +
+                '                                    </div>\n' +
+                '\n' +
+                '\n' +
+                '                                </a>'
+        }
+
+        const name_search = document.getElementById("find-name")
+        const mv_search = document.getElementById("mv-search")
+        const search_movie = document.getElementById("search-movie")
+
+
+        function searchMovie(){
+            let url_search_movie = '';
+            if(name_search.value == ''){
+                url_search_movie = new URL("http://localhost:8081/api/search/!a")
+
+            }else {
+                url_search_movie = new URL("http://localhost:8081/api/search/"+name_search.value)
+
+            }
+            axios.get(url_search_movie).then(response => {
+                if(response.data.length == 0){
+                    search_movie.classList.remove("active")
+                    mv_search.innerHTML=""
+                }
+                if(response.data.length != 0 && response.data != null){
+                    search_movie.classList.add("active")
+
+                    mv_search.innerHTML=""
+                    for(let i =0;i<response.data.length;i++){
+                        let li = document.createElement('li');
+                        li.innerHTML = getTagMovie(response.data[i].id,response.data[i].movie_image,
+                            response.data[i].stringMovieName,response.data[i].episode,response.data[i].total_episodes,
+                            response.data[i].view,response.data[i].rate,response.data[i].stringMovieIntroduce
+                        );
+                        mv_search.appendChild(li);
+                        console.log(response.data[i])
+
+                    }
+                }
+
+
+            })
+        }
+
+
     </script>
 </div>
 

@@ -23,6 +23,8 @@ public class Advertisement {
 
     private String banner;
 
+    private String access;
+
     private int location;
 
     private LocalDateTime created_at;

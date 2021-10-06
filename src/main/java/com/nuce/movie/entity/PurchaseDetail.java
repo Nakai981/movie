@@ -1,28 +1,32 @@
 package com.nuce.movie.entity;
 
-import lombok.Data;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
-@Data
 @Entity
-@Table(name = "movie_detail")
-public class MovieDetail {
+@Table(name="purchaseDetail")
+@Getter
+@Setter
+public class PurchaseDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private float rate;
-    private boolean follow;
-    private boolean nominations;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "movie_id",nullable = false)
-    private Movie movie;
+    @JoinColumn(name = "purchase_id",nullable = false)
+    private Purchase purchase;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "user_id",nullable = false)
     private User user;
 
-    private boolean status;
+    private LocalDateTime create_at;
+
+
+
 
 }

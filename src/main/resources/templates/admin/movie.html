@@ -105,6 +105,25 @@
                                                     </form>
 
                                                 </th:block>
+                                                <hr>
+                                                <th:block th:if="${item.nominate == true}">
+                                                    <form action="/admin/cancel/nomination" method="get">
+                                                        <input type="hidden" name="id" th:value="${item.id}">
+                                                        <button class="btn btn-secondary" type="submit">
+                                                            <i class="fa fa-check text-light"></i>
+                                                        </button>
+
+                                                    </form>
+                                                </th:block>
+                                                <th:block th:if="${item.nominate == false}">
+                                                    <form action="/admin/follow/nomination" method="get">
+                                                        <input type="hidden" name="id" th:value="${item.id}">
+                                                        <button class="btn btn-outline-secondary" type="submit">
+                                                            <i class="fa fa-check text-dark"></i>
+                                                        </button>
+                                                    </form>
+
+                                                </th:block>
                                             </td>
                                             <td>
                                                 <a th:href="@{'/admin/movie/detail?id='+${item.id}}" class="btn btn-primary" ><i class="fa fa-plus text-light"></i></a>

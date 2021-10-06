@@ -29,5 +29,21 @@ public class RoleServiceImpl implements RoleService {
         if(name == null) return true;
         else return false;
     }
+    @Override
+    public Integer getRoleNameByUserId( int user_id){
+        List<Integer> role_id_list = roleRepository.getRoleNameByUserId(user_id);
+        for(Integer i: role_id_list){
+            if(i == 5){
+                return 4;
+            }
+            if(i == 1){
+                return i;
+            }
+            if(i == 2){
+                return i;
+            }
+        }
+        return 0;
+    }
 
 }

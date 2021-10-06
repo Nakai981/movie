@@ -12,18 +12,18 @@
     <div class="row mt-4 ">
         <div class="col">
             <div class="login">
-                <form action="/login/process" method="post">
-                    <table>
-                        <tr>
-                            <td colspan="2">
-                                <div style="margin: 20px 0px ;" class="content">
-                                    <h3 class="text-light mb-0">GROUP</h3><small class="text-light">@1080+</small>
-                                    <small style="color:#cdcdcd">Please login and join us</small>
-                                </div>
-                            </td>
-                        </tr>
-                        <th:block th:switch="${covert_status}">
-                            <th:block th:case="signup">
+                <th:block th:switch="${covert_status}">
+                    <th:block th:case="signup">
+                        <form action="/login/process" method="post">
+                            <table>
+                                <tr>
+                                    <td colspan="2">
+                                        <div style="margin: 20px 0px ;" class="content">
+                                            <h3 class="text-light mb-0">GROUP</h3><small class="text-light">@1080+</small>
+                                            <small style="color:#cdcdcd">Please login and join us</small>
+                                        </div>
+                                    </td>
+                                </tr>
                                 <tr>
 
                                     <td>
@@ -53,40 +53,43 @@
 
                                 </tr>
 
-                            </th:block>
-                            <th:block th:case="signin">
 
-                                <!--/*/ <th:block th:include="fragments/signin-fragment.html :: sign-in" ></th:block> /*/-->
 
-                            </th:block>
-                        </th:block>
-                        <tr class="mt-4">
-                            <td>
-                                <hr>
-                            </td>
+                                <tr class="mt-4">
+                                    <td>
+                                        <hr>
+                                    </td>
 
-                        </tr>
-                        <tr class="mt-4">
-                            <td><small class="text-light">Login by facebook, create account</small></td>
+                                </tr>
+                                <tr class="mt-4">
+                                    <td><small class="text-light">Login by facebook, create account</small></td>
 
-                        </tr>
-                        <tr>
-                            <td style="height: 10px"></td>
-                        </tr>
-                        <tr>
+                                </tr>
+                                <tr>
+                                    <td style="height: 10px"></td>
+                                </tr>
+                                <tr>
 
-                            <td>
+                                    <td>
 
-                                <a href="/processLogin/facebook"
-                                   style="border-radius:50%; background-color: #2596ec; padding: 8px 14px; margin-top: 10px;"><i
-                                        class="fa fa-facebook text-light"></i></a>
-                                <a href="/signin" class="ml-1"
-                                   style="border-radius:50%;font-size: 13px;background-image: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);padding: 10px 12px; margin-top: 10px;"><i
-                                        class="fa fa-user-plus text-light"></i></a>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
+                                        <a  href=""
+                                           style="border-radius:50%; background-color: #2596ec; padding: 8px 14px; margin-top: 10px;"><i
+                                                class="fa fa-facebook text-light"></i></a>
+                                        <a href="/signin" class="ml-1"
+                                           style="border-radius:50%;font-size: 13px;background-image: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);padding: 10px 12px; margin-top: 10px;"><i
+                                                class="fa fa-user-plus text-light"></i></a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+
+                    </th:block>
+                    <th:block th:case="signin">
+
+                        <!--/*/ <th:block th:include="fragments/signin-fragment.html :: sign-in" ></th:block> /*/-->
+
+                    </th:block>
+                </th:block>
             </div>
         </div>
     </div>

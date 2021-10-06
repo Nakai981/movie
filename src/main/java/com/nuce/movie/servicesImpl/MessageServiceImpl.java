@@ -45,7 +45,7 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.getAllByEpisodeId(id);
     }
     @Override
-    public  void    saveEpisodeServer(int server_id, int episode_id, String link, int message_id){
+    public void saveEpisodeServer(int server_id, int episode_id, String link, int message_id){
         Message m = new Message();
         Episode e = episodeRepository.findById(episode_id).get();
         Server s = serverRepository.findById(server_id).get();

@@ -10,4 +10,5 @@ public interface RoleService {
     String getRoleName(int id);
 
     boolean getIdByRoleIDAndUserId(int role_id, int user_id);
+    public Integer getRoleNameByUserId( int user_id);
 }

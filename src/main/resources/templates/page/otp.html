@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Home</title>
+  <!--/*/ <th:block th:include="fragments/head-fragment.html :: head" ></th:block> /*/-->
+</head>
+<body>
+<header th:insert="fragments/navigation-fragement.html :: header"></header>
+
+
+<div class="container">
+  <div class="row mt-4" style="display: flex; flex-direction: column; align-items: center">
+    <h6 class="text-danger mt-3">     <i class="fa fa-film text-secondary"></i> | USER OTP</h6>
+    <small class="" style="color: #cdcdcd">&copyTop user otp</small>
+  </div>
+
+  <div class="row d-flex flex-column justify-content-center align-items-center" style="height: 30vh;">
+    <form action="/signin/otp" method="post">
+      <input type="number" name="otp" style="width: 300px; height: 50px;background-color: #000; border: none; font-size: 18px; color: #fff; padding-left: 10px; outline:none">
+      <br>
+      <button type="submit" class="btn btn-outline-danger mt-2">Confirm</button>
+    </form>
+    <p class="text-secondary ml-2 p-0">Otp code sent to your email, please confirm</p>
+    <br>
+    <small class="text-danger" th:text="${message}"></small>
+
+  </div>
+  
+</div>
+
+<div th:insert="fragments/message-fragment.html ::comment"></div>
+
+<div th:insert="fragments/message-fragment.html ::comment"></div>
+<!--/*/ <th:block th:include="fragments/ads-fragment.html ::ads1 "></th:block> /*/-->
+
+<div th:insert="fragments/footer-fragment.html ::footer"></div>
+<!--/*/ <th:block th:include="fragments/head-fragment.html :: script" ></th:block> /*/-->
+
+
+</body>
+</html>

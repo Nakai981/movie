@@ -1,5 +1,6 @@
 package com.nuce.movie.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,12 +28,15 @@ public class Movie {
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "nation_id",nullable = false)
+    @JsonIgnore
     private Nation nation;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<MovieDetail> movieDetails;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Episode> episodes;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -40,7 +44,7 @@ public class Movie {
             joinColumns = @JoinColumn(name="movie_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-
+    @JsonIgnore
     private List<Category> categories;
 
     private boolean status;
@@ -50,7 +54,14 @@ public class Movie {
         if(this.movie_name.length()<=19){
             return this.movie_name;
         }
-        return  this.movie_name.substring(0,15)+"...";
+        return  this.movie_name.substring(0,17)+"...";
+    }
+    @Transient
+    public String getStringMovieIntroduce(){
+        if(this.movie_introduction.length()<=70){
+            return this.movie_introduction;
+        }
+        return  this.movie_introduction.substring(0,70)+"...";
     }
 
     @Transient
@@ -65,5 +76,7 @@ public class Movie {
     @Transient String nation_name;
 
     @Transient private List<String> category_name;
+
+    @Transient private boolean nominate = false;
 
 }

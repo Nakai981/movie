@@ -108,6 +108,29 @@
             </li>
           </th:block>
 
+          <th:block th:if="${active} == 'advertisement' ">
+            <li class="nav-item ">
+              <a href="/admin/advertisement" class="nav-link active" style="background-color: #dc3545">
+                <i class="fas fa-exclamation-circle nav-icon"></i>
+                <p>
+                  Advertisement Manager
+                </p>
+              </a>
+
+            </li>
+          </th:block>
+          <th:block th:if="${active} != 'advertisement' ">
+            <li class="nav-item ">
+              <a href="/admin/advertisement" class="nav-link">
+                <i class="fas fa-exclamation-circle nav-icon"></i>
+                <p>
+                  Advertisement Manager
+                </p>
+              </a>
+
+            </li>
+          </th:block>
+
           <th:block th:if="${active} == 'category' ">
             <li class="nav-item ">
               <a href="/admin/category" class="nav-link active" style="background-color: #dc3545">
@@ -250,6 +273,28 @@
                 <i class="fas fa-exclamation-circle nav-icon"></i>
                 <p>
                   Message Error
+                </p>
+              </a>
+
+            </li>
+          </th:block>
+          <th:block th:if="${active} == 'purchase' ">
+            <li class="nav-item ">
+              <a href="/manager/purchase" class="nav-link active" style="background-color: #dc3545">
+                <i class="fas fa-exclamation-circle nav-icon"></i>
+                <p>
+                  Purchase Manager
+                </p>
+              </a>
+
+            </li>
+          </th:block>
+          <th:block th:if="${active} != 'purchase' ">
+            <li class="nav-item ">
+              <a href="/manager/purchase" class="nav-link">
+                <i class="fas fa-exclamation-circle nav-icon"></i>
+                <p>
+                  Purchase Manager
                 </p>
               </a>
 

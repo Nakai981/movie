@@ -31,6 +31,9 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    DetailServiceImpl detailService;
+
 
 //    Get list movie by sorting rate
     @Override
@@ -110,6 +113,12 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.getCountMovie();
     }
 
+    @Override
+    public List<Movie> getAllByMovieName(String name){
+        List<Movie> movies = movieRepository.getAllByMovieName(name, PageRequest.of(0,5));
+        this.setPropertiesMovie(movies);
+        return movies;
+    }
 
     private void setPropertiesMovie(List<Movie> movies){
         for (Movie movie: movies){
@@ -121,7 +130,7 @@ public class MovieServiceImpl implements MovieService {
 
     public String getRateByMovieId(int id){
         if(movieRepository.getRateByMovieId(id) == null){
-            return "7.8";
+            return "??";
         }
         return movieRepository.getRateByMovieId(id);
     }
@@ -129,7 +138,7 @@ public class MovieServiceImpl implements MovieService {
 
     public String getViewByMovieId(int id){
         if(movieRepository.getViewByMovieId(id) == null){
-            return "2000";
+            return "20";
         }
         return movieRepository.getViewByMovieId(id);
     }
@@ -161,6 +170,7 @@ public class MovieServiceImpl implements MovieService {
         for(Movie m: movies){
             m.setNation_name(nationRepository.getNationByMovieId(m.getId()).getNation_name());
             m.setCategory_name(categoryRepository.getAllNameByMovieId(m.getId()));
+            m.setNominate(detailService.getNominate(m.getId()));
         }
         return movies;
     }
@@ -209,6 +219,15 @@ public class MovieServiceImpl implements MovieService {
         if(status == false){
             m.setStatus(true);
         }else m.setStatus(false);
+
+        movieRepository.save(m);
+    }
+    @Override
+    public void setNominate(int id, boolean status){
+        Movie m = this.getMovieByMovieId(id);
+        if(status == false){
+            m.setNominate(true);
+        }else m.setNominate(false);
 
         movieRepository.save(m);
     }

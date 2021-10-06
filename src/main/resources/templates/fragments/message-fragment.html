@@ -60,7 +60,7 @@
               // console.log(response.data);
             })
 
-          },1000)
+          },3000)
 
 
         }else{
@@ -89,12 +89,12 @@
             username: enter_name.value,
             comment: enter_cmt.value
           })
-                  .then((response) => {
-                    // console.log(response);
-                    enter_cmt.value = ""
-                  }, (error) => {
-                    // console.log(error);
-                  });
+          .then((response) => {
+            // console.log(response);
+            enter_cmt.value = ""
+          }, (error) => {
+            // console.log(error);
+          });
         }
       });
 

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
+
 public class MovieApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
